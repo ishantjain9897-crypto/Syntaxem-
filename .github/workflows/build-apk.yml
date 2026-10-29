@@ -54,6 +54,9 @@ jobs:
           KEYSTORE_PATH="./debug.keystore"
           if [ -f "$KEYSTORE_PATH" ]; then
             echo "Debug keystore already exists at $KEYSTORE_PATH. Skipping generation."
+          elif [ -f "./debug.keystore.base64" ]; then
+            echo "Restoring persistent debug keystore from debug.keystore.base64..."
+            base64 -d ./debug.keystore.base64 > "$KEYSTORE_PATH"
           else
             echo "Debug keystore not found. Generating temporary debug keystore..."
             keytool -genkeypair \
@@ -172,7 +175,9 @@ jobs:
           - **Source Commit**: ${GITHUB_SHA}
           - **Release Type**: Automatically generated debug build for testing
           - **Target**: Testing and quality assurance (not a Play Store production release)
-          - **Signing**: Signed with temporary debug keystore for development/testing
+          - **Signing**: Signed with project debug keystore for development/testing
+
+          > **Important Installation Note**: If an earlier version of Syntaxem is already installed on your device, please **uninstall it first** before installing this APK to avoid Android signature conflict ("App not installed as package appears to be invalid") errors.
           EOF
           )
           
