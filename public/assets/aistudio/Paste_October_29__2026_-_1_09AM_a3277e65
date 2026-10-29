@@ -1,0 +1,1573 @@
+CALCMASTER 2026 — LUMEN FLOW
+
+Implementation-Ready Master Build Prompt
+
+Android-first adaptive mathematics and physics learning platform
+
+---
+
+0. YOUR ROLE AND MISSION
+
+Act as a coordinated senior product and engineering team consisting of:
+
+1. Principal Android architect.
+2. Senior Kotlin and Jetpack Compose engineer.
+3. Mathematical computation and numerical verification engineer.
+4. Class 11 mathematics and physics curriculum specialist.
+5. Educational game designer.
+6. AI tutor and personalisation engineer.
+7. Premium UI/UX and accessibility designer.
+8. Backend, security and privacy engineer.
+9. QA automation and release engineer.
+
+Your mission is to design, implement, test and document CalcMaster 2026 as a genuinely functional educational application.
+
+Do not stop at producing a proposal, wireframe, landing page or collection of mock screens. Build a working application incrementally, verify its behaviour and deliver runnable source code.
+
+Non-negotiable operating rules
+
+- Never invent completed functionality, test results, citations, curriculum references or performance measurements.
+- Never display an unverified AI-generated numerical result as mathematically correct.
+- Never use fake buttons, dead navigation, fabricated progress or misleading loading states.
+- Never make core learning tools dependent on an internet connection.
+- Never add advertisements, paid student features, loot boxes, forced videos or pay-to-progress mechanics.
+- Never collect personal information without a documented need.
+- Clearly distinguish implemented, partially implemented and planned features.
+- Use "[ASSUMPTION]" for unresolved product decisions and "VERIFY BEFORE USE" for unconfirmed technical or legal details.
+- Prefer a small, reliable, testable release over a massive collection of incomplete features.
+- After each implementation phase, run the available tests and report failures honestly.
+- If you have repository or terminal access, inspect the existing project before modifying it. Preserve valid existing work. If no project exists, create a new one.
+
+Primary objective: Deliver an elegant, offline-first scientific learning environment that helps students calculate correctly, understand why a solution works and develop genuine mathematical and physical intuition.
+
+---
+
+1. PRODUCT IDENTITY
+
+1.1 Product definition
+
+Product name: CalcMaster 2026
+
+Design direction: LUMEN FLOW
+
+Platform: Android first, with an architecture that permits future iOS and desktop clients.
+
+Primary audience: Class 11 students, approximately ages 15–17.
+
+Secondary audience: Teachers and parents.
+
+Subjects:
+
+- Mathematics.
+- Trigonometry.
+- Physics.
+- Mathematical reasoning and scientific numeracy.
+
+Language at launch: English.
+
+Future languages: Hindi and other Indian regional languages, with architecture that supports right-to-left scripts.
+
+1.2 Product promise
+
+“Understand the why, not just the answer.”
+
+CalcMaster must unite five experiences:
+
+1. A dependable scientific calculator.
+2. A transparent, step-by-step solution engine.
+3. An adaptive AI learning companion.
+4. Short, concept-driven educational games.
+5. Interactive mathematical and physics laboratories.
+
+The application must remain useful even when the student never creates an account or uses AI.
+
+1.3 Business model
+
+The student application is permanently free and ad-free.
+
+Prohibited:
+
+- Advertisements of any kind.
+- Student feature paywalls.
+- Paid hints or solutions.
+- Purchasable game currency.
+- Paid learning boosts.
+- Forced subscriptions.
+- Selling student data.
+- Behavioural advertising.
+- Reward mechanics designed to create anxiety or compulsive use.
+
+Permitted funding proposals:
+
+- Educational grants.
+- School and institutional partnerships.
+- Optional donations.
+- Open-source sponsorship.
+- Separately priced teacher administration tools, provided student learning functionality remains free.
+
+No proposed funding arrangement may override privacy, safety or educational integrity.
+
+---
+
+2. THE LUMEN FLOW DESIGN SYSTEM
+
+Build a distinctive visual language based on calmness, scientific clarity, subtle warmth and excellent readability.
+
+2.1 Colour palette
+
+Use these initial design tokens. Treat them as design starting points and validate contrast before release.
+
+Token| Initial value| Purpose
+Background| "#F7F8F3"| Warm, calm canvas
+Surface| "#FFFFFF"| Main content surfaces
+Primary| "#356B59"| Main actions and progress
+Primary dark| "#244C40"| Strong emphasis
+Lavender| "#E9E4F5"| Secondary learning areas
+Mint| "#DDEFE5"| Positive learning feedback
+Terracotta| "#C86F58"| Carefully used emphasis
+Text primary| "#202824"| Main text
+Text secondary| "#59635D"| Supporting text
+Border| "#DDE2DA"| Dividers and boundaries
+Error| "#B42332"| Errors with explicit labels
+
+Create separate semantic tokens for dark mode, high contrast, disabled states, success, warning and informational feedback.
+
+Do not communicate correctness solely through colour. Use labels, icons and text.
+
+2.2 Typography
+
+Use a highly readable sans-serif typeface for body text and controls. Use an appropriate display face sparingly for editorial headings.
+
+Requirements:
+
+- Mathematical notation must remain clear at large and small sizes.
+- Fractions, superscripts, subscripts, radicals and Greek symbols must render correctly.
+- Body text must support Android font scaling.
+- Long explanations must have comfortable line spacing.
+- Buttons and navigation labels must remain readable.
+- Use a mathematical rendering component rather than approximating equations with ordinary text characters.
+
+Evaluate a suitable math renderer for Android and confirm its licence, accessibility behaviour, offline capability and maintenance status before adoption.
+
+2.3 Shape and spacing
+
+Use a restrained visual system:
+
+- Medium-radius content surfaces.
+- Small-radius functional controls.
+- Consistent spacing tokens.
+- Thin, low-contrast dividers.
+- Subtle shadows only where elevation conveys hierarchy.
+- Clear separation between navigation, content and actions.
+
+Avoid:
+
+- Excessive floating cards.
+- Glassmorphism everywhere.
+- Neon glows.
+- Large gradients behind equations.
+- Decorative particles.
+- Childish mascots.
+- Confetti after every answer.
+- Excessive motion or unnecessary transitions.
+
+2.4 Motion
+
+Animations should clarify state changes.
+
+Examples:
+
+- A graph line draws progressively when a student requests an explanation.
+- A solution step expands with a restrained transition.
+- A correct answer receives a small confirmation animation.
+- A simulation smoothly interpolates between physical states.
+
+Respect Android's animation scale and reduced-motion preference. Every essential operation must remain understandable without animation.
+
+2.5 Themes
+
+Implement:
+
+1. Warm Light.
+2. Deep Forest Dark.
+3. High Contrast.
+
+Persist the chosen theme locally. Default to the system preference where appropriate.
+
+2.6 Responsive design
+
+Support:
+
+- Compact Android phones.
+- Larger phones.
+- Portrait and landscape.
+- Tablets.
+- Foldable devices where practical.
+- Keyboard and mouse input on supported devices.
+
+On tablets, use a two-pane workspace where useful. Keep the equation or problem visible while the student examines its graph or explanation.
+
+---
+
+3. APPLICATION INFORMATION ARCHITECTURE
+
+Use five primary navigation destinations.
+
+1. Home.
+2. Calculator.
+3. Learn.
+4. Lab.
+5. Progress.
+
+The AI tutor must be accessible contextually from supported screens, not hidden behind a mandatory chat interface.
+
+The calculator must be available immediately in guest mode.
+
+3.1 Home screen
+
+Create a calm, personalised home screen containing:
+
+- Greeting without unnecessary personal data.
+- “Continue learning” action.
+- Quick calculator entry.
+- Daily practice recommendation.
+- Recently used tools.
+- One suggested topic with a reason.
+- Saved mistakes to review.
+- Recently explored simulations.
+- Offline availability indicator.
+
+Do not fill the home screen with unrelated widgets or excessive statistics.
+
+Interactions:
+
+- Tapping Continue resumes a saved activity.
+- Tapping Quick Calculate opens the calculator.
+- Tapping a recommendation previews its learning objective.
+- Tapping an error opens the original question and saved working.
+- Dismissing a recommendation does not penalise the student.
+
+Guest users receive the same core tools as signed-in users.
+
+3.2 Calculator screen
+
+Design the calculator as a complete scientific workspace.
+
+Include:
+
+- Editable mathematical expression.
+- Input cursor and selection.
+- Scientific keypad.
+- Basic arithmetic keypad.
+- Exact and decimal result presentation.
+- Degree/radian selector.
+- Undo and redo.
+- Calculation history.
+- Memory functions.
+- Step-by-step solution entry where supported.
+- Graph and formula shortcuts where applicable.
+
+Provide a compact mode for phones and an expanded expression workspace for tablets.
+
+Do not crowd the screen with every advanced operation at once. Group advanced functions into clear, searchable categories.
+
+3.3 Learn screen
+
+Organise learning by subject and curriculum topic.
+
+Top-level subjects:
+
+- Mathematics.
+- Trigonometry.
+- Physics.
+
+Each subject contains:
+
+- Topic map.
+- Prerequisite topics.
+- Concept explanations.
+- Worked examples.
+- Interactive exercises.
+- Mini-games.
+- Revision challenges.
+- Mastery status.
+
+Every topic page must state its learning objective and prerequisite knowledge.
+
+3.4 Lab screen
+
+Organise simulations by subject, concept and difficulty.
+
+Include:
+
+- Projectile motion.
+- Vector addition and resolution.
+- Newton's laws.
+- Work and energy.
+- Circular motion.
+- Gravitation.
+- Trigonometric graphs.
+- Coordinate geometry.
+- Conic sections.
+- Oscillations.
+- Waves.
+- Thermal and fluid demonstrations where validated models are available.
+
+Every simulation must identify its assumptions, controllable variables and limitations.
+
+3.5 Progress screen
+
+Show useful educational information rather than vanity metrics.
+
+Include:
+
+- Topics mastered.
+- Topics needing review.
+- Recent assessment performance.
+- Saved mistakes.
+- Revision queue.
+- Practice history.
+- Personal learning goals.
+- Export and privacy controls.
+
+Do not equate time spent with mastery.
+
+Do not shame students for inactivity or show punitive streak-loss warnings.
+
+3.6 Global search and command entry
+
+Provide a search interface for:
+
+- Formulas.
+- Topics.
+- Calculator functions.
+- Saved calculations.
+- Games.
+- Simulations.
+- Lessons.
+
+Support natural-language queries such as “plot sine x” or “explain acceleration.”
+
+Resolve natural-language requests into typed, validated operations. Ask for clarification when the request is ambiguous.
+
+Never execute arbitrary generated code from a natural-language command.
+
+---
+
+4. COMPLETE SCREEN AND INTERACTION INVENTORY
+
+Implement the following screens as real application destinations or documented flows.
+
+Screen| Required interactions
+Welcome| Enter as guest, explore features, choose language
+Onboarding| Select study interests, skip personalisation, understand privacy
+Home| Resume, quick calculate, review, open recommendation
+Calculator| Enter, edit, evaluate, undo, redo, save
+Scientific tools| Select functions, constants, angle units
+Expression editor| Cursor movement, insertion, deletion, selection
+Solution viewer| Switch explanation level, expand derivation steps
+Check my work| Enter working, compare first divergent step
+Equation solver| Enter equations, select unknown, inspect conditions
+Graphing| Add functions, trace points, zoom, pan, inspect intersections
+Unit converter| Select dimensions, source units, destination units
+Formula library| Search, filter, inspect variables and assumptions
+Physics solver| Select topic, enter known quantities, choose unknown
+Learn home| Browse subjects and topic maps
+Topic detail| Read concepts, try examples, launch practice
+Practice session| Answer, request hint, retry, stop or resume
+Mistake journal| Inspect error, edit notes, retry related problem
+Revision queue| Review, rate confidence, schedule next review
+Game library| Browse, filter, launch, resume
+Game session| Play, pause, receive explanations, retry
+Simulation library| Search, select experiment, inspect assumptions
+Simulation workspace| Change variables, pause, reset, compare runs
+AI tutor| Ask contextual questions, inspect cited calculation steps
+Progress dashboard| Inspect mastery, trends and learning gaps
+Profile/settings| Theme, accessibility, language, preferences
+Offline content| Inspect installed packs, download or remove optional packs
+Account| Sign up, verify email, sign in, reset password
+Privacy centre| Export data, delete account, inspect consent
+Teacher mode| Create assignment, share code, inspect class-level progress
+Error and recovery| Retry safely, preserve work, report diagnostics
+About/help| Explain capabilities, limitations, licences and support
+
+Use a consistent back-navigation policy. Preserve unfinished work during ordinary navigation.
+
+Every visible control must have a defined, testable action.
+
+---
+
+5. SCIENTIFIC CALCULATOR ENGINE
+
+The calculation engine is the foundation of trust. Implement and test it independently of the UI.
+
+5.1 Functional modes
+
+Basic
+
+- Addition, subtraction, multiplication and division.
+- Percentages.
+- Parentheses.
+- Memory store, recall, add and clear.
+- Calculation history.
+- Sign changes.
+- Configurable result formatting.
+
+Scientific
+
+- Powers and roots.
+- Logarithms.
+- Factorials.
+- Permutations and combinations.
+- Trigonometric and inverse trigonometric functions.
+- Hyperbolic functions.
+- Degree, radian and gradian modes.
+- Constants and scientific notation.
+
+Expression handling
+
+- Textbook-style expression rendering.
+- Editable expression tree.
+- Cursor-aware editing.
+- Undo and redo.
+- Explicit precedence rules.
+- Syntax diagnostics.
+- Exact and approximate results where supported.
+
+Equation solving
+
+- Linear equations.
+- Quadratic equations.
+- Cubic equations where implemented and validated.
+- Systems of two to four unknowns.
+- Inequalities.
+- Numerical root finding with convergence diagnostics.
+
+Linear algebra
+
+- Matrices.
+- Determinants.
+- Matrix inverses.
+- Vector operations.
+- Dot and cross products.
+- Vector resolution.
+
+Statistics
+
+- Mean, median and mode.
+- Variance and standard deviation.
+- Regression.
+- Data summaries.
+
+Complex numbers
+
+- Arithmetic.
+- Polar representation.
+- Modulus and argument.
+- Argand-plane visualisation.
+
+Sequences and series
+
+- Arithmetic progressions.
+- Geometric progressions.
+- Sum formulas.
+- Binomial expansion.
+
+Graphing
+
+- Plot multiple supported functions.
+- Zoom and pan.
+- Trace values.
+- Find supported intercepts.
+- Approximate extrema and intersections.
+- Display numerical precision and solver limitations.
+
+Physics calculations
+
+Provide structured solvers for kinematics, Newton's laws, work and energy, rotational motion, gravitation, properties of matter, thermodynamics, oscillations and waves.
+
+5.2 Exactness and numerical behaviour
+
+Define an explicit numeric representation policy.
+
+- Use exact rational arithmetic for supported rational operations.
+- Represent recognised constants and symbolic expressions explicitly.
+- Use suitable high-precision arithmetic for decimal operations.
+- Use numerically stable algorithms for supported numerical solvers.
+- Preserve units through physics calculations.
+- Never claim exactness for an approximation.
+- Never fabricate a symbolic simplification.
+
+For example, represent (1/3) exactly internally when possible, and show a decimal approximation separately.
+
+For "0.1 + 0.2", document the chosen decimal interpretation and verify the result against the documented arithmetic policy.
+
+5.3 Domain and error handling
+
+Provide useful explanations for:
+
+- Division by zero.
+- Invalid logarithm inputs.
+- Undefined expressions.
+- Singular matrices.
+- Invalid square roots in real-only contexts.
+- Non-convergent numerical solvers.
+- Inconsistent or underdetermined systems.
+- Unsupported symbolic transformations.
+- Unit incompatibility.
+
+Never silently return zero for an invalid result.
+
+5.4 Step-by-step derivation contract
+
+Every supported solvable problem must produce structured derivation data.
+
+Each step should contain:
+
+- Step identifier.
+- Input expression.
+- Transformation or rule.
+- Output expression.
+- Explanation.
+- Applicable assumptions.
+- Units where relevant.
+- Verification status.
+
+Provide three views:
+
+1. Hint.
+2. Outline.
+3. Full worked solution.
+
+Add a common-mistake note for supported problem categories.
+
+Use deterministic rules for standard solution steps. The AI may rephrase an explanation, but it must not invent derivation steps.
+
+5.5 Student working comparison
+
+Implement a structured checking mode.
+
+The student submits a sequence of expressions or recognised solution steps. The engine compares them with the supported mathematical transformation rules.
+
+When possible, identify the earliest invalid transformation and explain the issue.
+
+Equivalent algebraic expressions must not be marked wrong merely because their text differs.
+
+If the engine cannot confidently assess a step, state that the step could not be verified and offer a hint instead of guessing.
+
+5.6 Independent calculation verification
+
+Create a reference test suite with several hundred cases per major calculation category before declaring that category release-ready.
+
+Use independently implemented reference cases or a suitable independent computation engine.
+
+Test:
+
+- Exact values.
+- Decimal precision.
+- Boundary conditions.
+- Negative values.
+- Dimensional consistency.
+- Invalid inputs.
+- Randomised property tests.
+- Regression cases for every fixed defect.
+
+Document reference provenance, expected tolerances and known limitations.
+
+Never report a test count or pass rate until the tests have actually run.
+
+---
+
+6. AI TUTOR AND PERSONALISATION
+
+AI must augment the deterministic engine, not replace it.
+
+6.1 AI capabilities
+
+Implement these features incrementally:
+
+1. Context-aware concept explanations.
+2. Hint generation.
+3. Alternative explanation styles.
+4. Formula selection guidance.
+5. Student-working feedback.
+6. Validated practice question generation.
+7. Mistake categorisation.
+8. Revision recommendations.
+9. Natural-language calculator commands.
+10. Optional lesson summarisation.
+11. Teacher assistance with assignment preparation.
+
+6.2 Tutor interaction modes
+
+Allow the student to choose:
+
+- “Give me a small hint.”
+- “Explain the concept.”
+- “Why does this formula apply?”
+- “Show the next step.”
+- “Explain it more simply.”
+- “Give me a similar example.”
+- “Check my method.”
+- “Let me solve it myself.”
+
+Avoid forcing students into an AI conversation when they only want to calculate.
+
+6.3 Grounded response pipeline
+
+Use this processing sequence:
+
+1. Identify the user's request.
+2. Retrieve relevant installed curriculum content.
+3. Parse and validate any mathematical input.
+4. Invoke the deterministic engine when a calculation is required.
+5. Obtain the verified result and derivation.
+6. Generate a student-friendly explanation from structured facts.
+7. Validate equations, numerical claims, units and references.
+8. Present the response with a clear distinction between verified computation and explanatory language.
+
+If verification fails, do not present the result as verified.
+
+6.4 AI architecture
+
+Create interfaces for:
+
+- Local tutor or rule-based help.
+- Optional on-device language model.
+- Optional cloud language model.
+
+Do not require a model download to use the calculator.
+
+Evaluate on-device inference only after measuring RAM use, startup cost, response latency, language support, licensing and compatibility with low-end devices.
+
+Cloud AI must be optional and must clearly indicate when information leaves the device.
+
+Use minimal, purpose-specific request payloads. Do not send complete personal histories when a problem statement and verified result are sufficient.
+
+6.5 Adaptive learning
+
+Use demonstrated performance to estimate concept mastery.
+
+Consider:
+
+- Correctness.
+- Hint usage.
+- Independent attempts.
+- Repeated error patterns.
+- Delayed recall.
+- Difficulty level.
+- Confidence when explicitly provided by the student.
+
+Use a transparent, explainable knowledge model. A simple mastery-state model is preferable to a complex model that cannot be validated.
+
+Adapt difficulty gradually. Do not infer intelligence, mental health or emotional vulnerability.
+
+Students must be able to:
+
+- Reject a recommendation.
+- Change difficulty.
+- Review any topic.
+- Disable personalisation.
+- Clear optional learning history.
+
+6.6 AI safeguards
+
+- No unrestricted generated code execution.
+- No fabricated citations.
+- No unsupported medical, psychological or personal assessments.
+- No manipulative engagement prompts.
+- No behavioural advertising profiles.
+- No automatic sharing with teachers or parents without a documented, lawful basis and appropriate transparency.
+- No hidden AI-generated grading presented as authoritative.
+- No AI-generated numerical answer displayed as verified without deterministic cross-checking.
+
+---
+
+7. LEARNING ENGINE AND CURRICULUM
+
+Build a curriculum content model that can accommodate different boards without mixing incompatible syllabus structures.
+
+Use a versioned curriculum manifest with:
+
+- Board.
+- Class.
+- Subject.
+- Chapter.
+- Learning objective.
+- Prerequisites.
+- Concept explanation.
+- Worked example.
+- Practice template.
+- Assessment rules.
+- Source and verification status.
+
+Target CBSE/NCERT Class 11 mathematics and physics first. Confirm the applicable 2026 syllabus before labelling any topic as officially included.
+
+7.1 Mathematics coverage
+
+Include supported content for:
+
+- Sets.
+- Relations and functions.
+- Trigonometric functions.
+- Complex numbers and quadratic equations.
+- Linear inequalities.
+- Permutations and combinations.
+- Binomial theorem.
+- Sequences and series.
+- Straight lines.
+- Conic sections.
+- Introduction to three-dimensional geometry.
+- Limits and derivatives.
+- Statistics.
+- Probability.
+- Mathematical reasoning where relevant to the selected curriculum.
+
+7.2 Physics coverage
+
+Include:
+
+- Units and measurements.
+- Significant figures and measurement errors.
+- Motion in a straight line.
+- Motion in a plane.
+- Laws of motion.
+- Work, energy and power.
+- Systems of particles and rotational motion.
+- Gravitation.
+- Mechanical properties of solids.
+- Mechanical properties of fluids.
+- Thermal properties of matter.
+- Thermodynamics.
+- Kinetic theory.
+- Oscillations.
+- Waves.
+
+The final chapter manifest must be checked against the actual applicable curriculum rather than assumed from an old syllabus.
+
+7.3 Daily practice
+
+Generate a short optional session from:
+
+- Recently studied concepts.
+- Weak areas.
+- Upcoming revision intervals.
+- Prerequisite gaps.
+- Available installed content.
+
+Provide a simple explanation of why each activity was recommended.
+
+No daily activity should block access to other features.
+
+7.4 Revision system
+
+Use spaced repetition with configurable intervals and student-controlled review.
+
+Store the original question, the student's response, verified answer, relevant explanation and revision state.
+
+Allow students to remove or reset mistakes.
+
+---
+
+8. EDUCATIONAL GAME SYSTEM
+
+Implement a reusable game framework rather than five unrelated systems.
+
+Every game must specify:
+
+- Syllabus objective.
+- Rules.
+- Input model.
+- Difficulty levels.
+- Feedback.
+- Scoring.
+- Progression.
+- Accessibility.
+- Offline requirements.
+- Testable success criteria.
+
+8.1 Five core games
+
+Game A: Unit Circle Quest
+
+Genre: Trigonometric exploration.
+
+Students place angles, identify quadrants, discover sine and cosine relationships and explore graphs.
+
+Game B: Projectile Lab
+
+Genre: Physics prediction and puzzle solving.
+
+Students adjust variables, predict trajectories and compare predictions with verified simulation results.
+
+Game C: Algebra Arena
+
+Genre: Turn-based mathematical strategy.
+
+Students solve equations and construct valid transformations to progress.
+
+Game D: Force & Motion Builder
+
+Genre: Engineering construction puzzle.
+
+Students apply force, equilibrium, friction and energy concepts to build working mechanisms.
+
+Game E: Graph Escape
+
+Genre: Mathematical puzzle and escape room.
+
+Students solve coordinate geometry and function challenges to open new areas.
+
+8.2 Mini-game library
+
+Design a content pipeline for at least 110 short educational games.
+
+Target distribution:
+
+- Approximately 45 mathematics games.
+- Approximately 25 trigonometry games.
+- Approximately 40 physics games.
+
+Use varied mechanics:
+
+- Matching.
+- Sorting.
+- Drag and drop.
+- Graph reading.
+- Formula assembly.
+- Error spotting.
+- Solution correction.
+- Number-line placement.
+- Estimation.
+- Memory pairs.
+- Logic puzzles.
+- Rhythm-based wave activities.
+- Sandbox experiments.
+- Word-problem construction.
+- Optional cooperative challenges.
+
+Plan approximately 20–25 carefully tested mini-games for the first MVP. Release additional validated content in later packs.
+
+Do not claim that all 110 games are implemented until they are available and tested.
+
+8.3 Rewards and competition
+
+Reward concept mastery, meaningful progress and persistence.
+
+Use optional badges, visual customisation and printable certificates.
+
+No purchasable currency.
+
+Leaderboards must be optional, limited in scope and designed to minimise student data exposure.
+
+Allow solo play without an account.
+
+---
+
+9. INTERACTIVE SIMULATION LAB
+
+Build simulations using explicit mathematical models.
+
+Each simulation should expose:
+
+- Learning objective.
+- Controllable parameters.
+- Current values and units.
+- Governing equations.
+- Model assumptions.
+- Graph or diagram.
+- Reset control.
+- Pause and resume.
+- Experiment comparison.
+- A short explanation of the result.
+
+9.1 Required first simulations
+
+1. Projectile motion.
+2. Vector addition.
+3. Newton's second law.
+4. Work-energy relationship.
+5. Trigonometric function explorer.
+6. Coordinate geometry and conic sections.
+7. Simple harmonic motion.
+8. Wave interference or superposition, within the supported model.
+
+9.2 Simulation accuracy
+
+Use deterministic state updates and document numerical methods.
+
+Separate:
+
+- Ideal mathematical models.
+- Approximate numerical models.
+- Empirical measurements, if introduced later.
+
+Never imply that a simplified simulation reproduces every real-world effect.
+
+Validate representative states against analytic solutions where possible.
+
+Ensure that pausing, resetting and changing parameters produces consistent results.
+
+---
+
+10. ANDROID ARCHITECTURE AND TECHNOLOGY
+
+Build Android first using a maintainable modular architecture.
+
+10.1 Preferred stack
+
+Technology| Purpose| Decision
+Kotlin| Primary language| Use for Android and shared domain logic
+Jetpack Compose| Android UI| Preferred for declarative, accessible interfaces
+Coroutines and Flow| Asynchronous work and reactive state| Use for repository and UI state pipelines
+Room| Local structured storage| Recommended for Android-first persistence
+WorkManager| Deferred background sync| Use for reliable, constraint-aware background work
+Hilt or Koin| Dependency injection| Choose one after evaluating setup and maintenance
+Gradle version catalogs| Dependency consistency| Use centrally
+Gradle convention plugins| Build standardisation| Introduce as modules grow
+Kotlin Multiplatform| Future shared logic| Keep domain boundaries portable; do not force premature cross-platform UI
+Compose Multiplatform| Potential future shared UI| Evaluate separately before committing
+Baseline Profiles| Startup and interaction optimisation| Use when supported and measured
+Macrobenchmark| Performance measurement| Establish reproducible benchmarks
+Kotlin/JVM test tools| Unit and integration tests| Select maintained compatible versions
+Versioned JSON| Learning content| Use validated, data-driven content manifests
+
+Verify current stable versions, platform support, licences and compatibility at implementation time. Do not invent dependency versions.
+
+10.2 Module layout
+
+Use a structure similar to:
+
+app/
+core/
+  design-system/
+  navigation/
+  common/
+  security/
+  telemetry/
+domain/
+  calculation/
+  units/
+  derivations/
+  curriculum/
+  mastery/
+  revision/
+data/
+  local/
+  remote/
+  sync/
+  content/
+feature/
+  home/
+  calculator/
+  solver/
+  graphing/
+  learn/
+  practice/
+  games/
+  lab/
+  tutor/
+  progress/
+  settings/
+  account/
+  teacher/
+
+Split modules only when the boundary provides real value. Avoid creating dozens of empty modules.
+
+10.3 Domain boundaries
+
+The calculation engine must not depend on Compose.
+
+Curriculum content must not contain UI-specific state.
+
+Games must use the shared calculation and assessment interfaces when applicable.
+
+AI services must call validated domain operations rather than bypassing them.
+
+The UI must receive typed results and structured error states, not unvalidated text generated by a model.
+
+10.4 Android minimum version
+
+[ASSUMPTION] Evaluate Android API 26 as an initial minimum, subject to dependency compatibility and target-device testing.
+
+Verify the selected minimum against current Android support requirements, device distribution and the intended low-end hardware audience.
+
+Do not sacrifice essential accessibility or reliability to support devices that cannot run the application safely.
+
+---
+
+11. OFFLINE-FIRST OPERATION
+
+The calculator is useful without an account or connection.
+
+The following must work offline:
+
+- All shipped calculator functions.
+- Supported deterministic derivations.
+- Unit conversion.
+- Installed formula library.
+- Installed lessons.
+- Installed practice questions.
+- Installed games.
+- Installed simulations.
+- Local learning history.
+- Local notes and mistake journal.
+
+11.1 Local-first data policy
+
+Write local data first. Synchronise eligible data when the user has an account and connectivity.
+
+Resolve conflicts using documented rules. Never silently discard student notes or completed work.
+
+Provide a visible offline status and a clear way to inspect installed content.
+
+11.2 Content delivery
+
+Use versioned JSON or another validated data format for questions, lessons, hints, game levels and formula metadata.
+
+A content pack must declare:
+
+- Pack identifier.
+- Schema version.
+- Content version.
+- Required application capability.
+- Curriculum mapping.
+- Resource requirements.
+- Integrity metadata.
+- Licence information.
+
+Validate packs before activation. Retain a last-known-good version when an update fails.
+
+Deliver new data-driven content without reinstalling the application where supported.
+
+Use Google Play-supported feature or asset delivery for suitable modules and assets. Verify current policies before implementation.
+
+Never download and execute arbitrary executable code as a workaround for application review or update rules.
+
+---
+
+12. BACKEND AND DATA MODEL
+
+The app must remain usable when backend services are unavailable.
+
+12.1 Optional backend services
+
+Implement only services required by the release:
+
+- Account and authentication service.
+- Encrypted transport.
+- Progress synchronisation.
+- Content distribution.
+- Optional AI gateway.
+- Optional teacher/classroom service.
+- Account deletion and data export.
+- Minimal operational diagnostics.
+
+Do not introduce a large distributed architecture without a demonstrated need.
+
+12.2 Data entities
+
+Design versioned entities for:
+
+- UserAccount.
+- UserPreferences.
+- LearningProgress.
+- TopicMastery.
+- PracticeAttempt.
+- SavedCalculation.
+- SavedMistake.
+- NotebookEntry.
+- GameProgress.
+- SimulationExperiment.
+- ContentPack.
+- Assignment.
+- ClassMembership.
+- ConsentRecord where legally necessary.
+
+Guest data should use a local identifier and remain local unless the student explicitly chooses an appropriate backup mechanism.
+
+12.3 Authentication
+
+Support:
+
+- Email and password.
+- Email verification.
+- Secure password reset links.
+- Rate limiting.
+- Secure server-side password hashing with an appropriate modern password-hashing algorithm.
+- Session management.
+- Account deletion.
+- Data export.
+
+Optional sign-in methods can be added after the email flow is secure.
+
+Never store passwords in plaintext, application logs or analytics.
+
+Keep secrets out of source control and client binaries.
+
+12.4 Privacy and child safety
+
+Use privacy by default.
+
+- Collect only necessary data.
+- No behavioural advertising.
+- No sale of student data.
+- No public student profiles by default.
+- No precise location collection for learning.
+- No unnecessary contact-list, microphone or camera permissions.
+- No automatic social sharing.
+- No undisclosed AI data transmission.
+
+Provide understandable privacy information and meaningful controls.
+
+Review applicable Indian data protection requirements, including the DPDP Act and relevant rules, and assess GDPR-K or COPPA only where their territorial and legal scope applies. Obtain qualified legal review before launch; this prompt does not establish legal compliance.
+
+---
+
+13. ACCESSIBILITY AND INCLUSION
+
+Make accessibility a release requirement rather than a later enhancement.
+
+Implement:
+
+- TalkBack semantics and logical focus order.
+- Dynamic text sizes.
+- High-contrast mode.
+- Colour-blind-safe indicators.
+- Reduced motion.
+- Haptic and sound controls.
+- Left-handed keypad layout.
+- One-handed calculator access.
+- Keyboard navigation.
+- Switch-access compatibility.
+- Clear error messages.
+- Accessible graphs with textual descriptions and traceable values.
+- Accessible alternatives for drag-and-drop games.
+- Adequate touch targets.
+- Localisable strings and layouts.
+
+Mathematical content must remain understandable when read aloud. Provide spoken descriptions or structured linear alternatives for complex expressions where supported.
+
+Test with real accessibility services and manual keyboard and switch navigation, not only automated scanners.
+
+---
+
+14. UI STATE AND INTERACTION QUALITY
+
+Use predictable, recoverable state handling.
+
+Every asynchronous screen must support:
+
+- Loading.
+- Success.
+- Empty state.
+- Recoverable error.
+- Offline state where relevant.
+
+Do not use endless spinners.
+
+Preserve expression edits when opening a help panel or switching explanation modes.
+
+Confirm destructive operations such as deleting saved notes.
+
+Never require an account merely to dismiss onboarding or access the calculator.
+
+Avoid notifications by default. If optional reminders are added, explain their purpose and allow easy disablement.
+
+---
+
+15. TESTING AND VERIFICATION
+
+15.1 Unit tests
+
+Test:
+
+- Arithmetic semantics.
+- Expression parsing.
+- Operator precedence.
+- Exact arithmetic.
+- Rounding.
+- Trigonometric conventions.
+- Equation solving.
+- Unit conversions.
+- Dimensional analysis.
+- Numerical convergence.
+- Matrix operations.
+- Graph evaluation.
+- Mastery updates.
+- Revision scheduling.
+- Content schema validation.
+
+15.2 Integration tests
+
+Verify:
+
+- Calculator to derivation.
+- Calculator to graph.
+- Physics solver to units.
+- Practice to mistake journal.
+- Games to assessment.
+- Simulation to experiment history.
+- Guest mode to local persistence.
+- Account sync and conflict recovery.
+- Content updates and rollback.
+- Account deletion and export.
+
+15.3 UI tests
+
+Test all primary navigation, essential interactions, empty states, errors, screen rotation, theme changes, font scaling and offline operation.
+
+15.4 Property and regression tests
+
+Use property-based tests for supported mathematical invariants.
+
+Examples:
+
+- Valid inverse operations recover the original value within the documented tolerance.
+- Unit conversion round trips preserve equivalent quantities within tolerance.
+- Matrix inversion is rejected for singular matrices.
+- Supported graph evaluation agrees with the engine's evaluation at test points.
+- Equivalent supported expressions produce equivalent results.
+
+Maintain a regression test for every fixed defect.
+
+15.5 Device testing
+
+Test on:
+
+- A low-memory Android device.
+- A mainstream phone.
+- A tablet or large-screen emulator.
+- At least one supported older Android version.
+- Current supported Android versions.
+
+Do not claim universal compatibility from emulator tests alone.
+
+15.6 Proposed release targets
+
+These are hypotheses to measure, not achieved facts.
+
+- No known critical calculation defects in release-blocking test suites.
+- No known critical privacy or security defects.
+- At least 99.5% crash-free sessions as an initial product-health target, measured with privacy-appropriate telemetry.
+- Responsive basic calculation interaction under normal device load.
+- Smooth graph interaction on the declared minimum supported device.
+- No mandatory network dependency for core offline features.
+- No blocking accessibility defects in primary flows.
+
+Record actual measurements, test environments and remaining limitations.
+
+---
+
+16. PERFORMANCE AND RESOURCE BUDGETS
+
+Set explicit budgets before optimisation.
+
+Initial proposed goals:
+
+- Cold startup: target approximately 2 seconds or less on a defined reference device.
+- Basic calculation: target approximately 100 milliseconds or less under normal load.
+- Lightweight screen transitions: avoid unnecessary main-thread work.
+- Graph updates: maintain responsive interaction on the minimum supported device.
+- Memory: avoid loading unnecessary game assets and large models into RAM.
+- Initial installation: keep the essential application lean; distribute optional content separately where permitted.
+
+These targets are engineering goals, not guarantees. Benchmark actual release builds on defined hardware.
+
+Use profiling, Baseline Profiles where applicable, memory diagnostics and macrobenchmarks to guide improvements.
+
+Do not load an on-device AI model on startup unless the student explicitly enters a feature that requires it.
+
+---
+
+17. BUILD AND RELEASE PLAN
+
+Do not attempt the entire product in one code-generation step.
+
+Build a sequence of complete, testable vertical slices.
+
+Phase 0 — Repository and technical validation
+
+Tasks:
+
+- Inspect the repository and build configuration.
+- Establish the target SDK and minimum supported version.
+- Confirm compatible library versions.
+- Define architecture boundaries.
+- Create the design token system.
+- Establish automated builds and tests.
+
+Deliverable: A reproducible Android project that builds.
+
+Phase 1 — Foundation
+
+Implement:
+
+- App navigation.
+- LUMEN FLOW design system.
+- Light, dark and high-contrast themes.
+- Local persistence.
+- Guest mode.
+- Accessible shared controls.
+- Error and loading states.
+
+Deliverable: A functional shell with real navigation and local persistence.
+
+Phase 2 — Calculator MVP
+
+Implement:
+
+- Basic arithmetic.
+- Scientific functions.
+- Expression editing.
+- Angle modes.
+- Calculation history.
+- Domain errors.
+- Precision policy.
+- Automated mathematical tests.
+
+Deliverable: A trustworthy offline calculator.
+
+Do not proceed to advanced AI calculation claims until the underlying engine is verified.
+
+Phase 3 — Verified learning
+
+Implement:
+
+- Structured derivations for supported problem types.
+- Hint, outline and full solution modes.
+- Unit-aware physics examples.
+- Formula library.
+- Topic and curriculum manifests.
+- Student-working comparison for supported transformations.
+
+Deliverable: A functioning calculation-and-understanding loop.
+
+Phase 4 — First learning experience
+
+Implement:
+
+- Topic pages.
+- Daily practice.
+- Mistake journal.
+- Revision scheduling.
+- One complete mini-game.
+- One validated simulation.
+
+Deliverable: One coherent learning journey from explanation to practice.
+
+Phase 5 — AI tutor
+
+Implement:
+
+- Contextual hints.
+- Grounded explanations.
+- Structured request parsing.
+- Result validation.
+- Optional online AI.
+- Privacy disclosures.
+- Graceful offline fallback.
+
+Deliverable: An AI tutor that never replaces deterministic calculation verification.
+
+Phase 6 — Expand the product
+
+Add:
+
+- More calculator modes.
+- More games.
+- Additional simulations.
+- Graphing improvements.
+- More validated curriculum content.
+- Optional teacher tools.
+
+Deliverable: A growing content library with consistent architecture.
+
+Phase 7 — Accounts and synchronisation
+
+Implement:
+
+- Email registration.
+- Verification.
+- Password reset.
+- Secure sessions.
+- Progress synchronisation.
+- Export and deletion.
+- Conflict handling.
+
+Deliverable: Optional account functionality without weakening guest access.
+
+Phase 8 — Release readiness
+
+Perform:
+
+- Security review.
+- Privacy review.
+- Curriculum review.
+- Accessibility testing.
+- Mathematical regression testing.
+- Device compatibility testing.
+- Performance benchmarking.
+- Release signing and store preparation.
+
+Deliverable: A tested release candidate with a documented limitations list.
+
+Phase 9 — Post-launch improvement
+
+Use privacy-respecting feedback and validated product-health measurements to prioritise improvements.
+
+Add content packs incrementally, monitor regressions and retain rollback capability.
+
+Never make a feature mandatory merely to improve engagement metrics.
+
+---
+
+18. PROJECT MANAGEMENT AND TEAM WORKFLOW
+
+For a small team, prioritise these responsibilities:
+
+1. Android and architecture owner.
+2. Calculation engine and verification owner.
+3. Curriculum and learning content owner.
+4. UI/UX and accessibility owner.
+5. AI and backend owner, if capacity permits.
+6. QA and release responsibility shared across the team.
+
+[ASSUMPTION] A team of two to six people may require several months or longer for a credible MVP. Final estimates must follow repository inspection, technical validation and scope agreement.
+
+For every task, define:
+
+- Objective.
+- Dependencies.
+- Files or modules affected.
+- Acceptance criteria.
+- Tests required.
+- Known risks.
+- Completion status.
+
+Do not mark a task complete solely because source code was generated.
+
+---
+
+19. REQUIRED DEVELOPER OUTPUTS
+
+Produce and maintain:
+
+1. Runnable Android source project.
+2. README with exact build instructions.
+3. Architecture overview.
+4. Module dependency diagram.
+5. Design tokens and component catalogue.
+6. Screen navigation map.
+7. Calculation engine specification.
+8. Numerical precision and rounding policy.
+9. Formula and derivation schemas.
+10. Curriculum manifest.
+11. Game content schema.
+12. Simulation model documentation.
+13. AI grounding and validation design.
+14. Local database schema and migrations.
+15. API contracts where backend services exist.
+16. Privacy and security checklist.
+17. Accessibility checklist.
+18. Automated test suite.
+19. Device and performance test report.
+20. Release checklist.
+21. Known limitations and unresolved risks.
+
+Use Mermaid diagrams where helpful.
+
+Do not generate enormous placeholder files merely to appear comprehensive. Prefer complete, cohesive, testable implementations.
+
+---
+
+20. MVP DEFINITION OF DONE
+
+The first release candidate is not complete until all of the following are demonstrably functional.
+
+Core experience
+
+- Guest mode opens without registration.
+- Basic and scientific calculations work offline.
+- Expressions are editable.
+- Errors are understandable.
+- History persists locally.
+
+Mathematical trust
+
+- Supported equations have verified derivations.
+- Numeric policies are documented.
+- Reference tests pass.
+- Invalid inputs are handled safely.
+- AI does not bypass the calculation engine.
+
+Learning
+
+- At least one complete curriculum topic is available.
+- Practice feedback explains mistakes.
+- At least one revision workflow works.
+- A student can save and resume progress.
+
+Games and simulations
+
+- At least one educational game is playable.
+- At least one simulation has documented assumptions.
+- Both work offline after installation.
+- Wrong answers provide useful feedback.
+
+Design
+
+- All five primary navigation destinations work.
+- Theme selection works.
+- Accessibility basics are tested.
+- Compact phone layouts are usable.
+- No core screen consists only of mock data.
+
+Privacy and reliability
+
+- No advertisements.
+- No student feature paywalls.
+- No plaintext password storage.
+- No unnecessary permissions.
+- Local data survives normal navigation and process recreation.
+- Failure states do not silently destroy work.
+
+Delivery
+
+- Project builds reproducibly.
+- Automated tests run.
+- Actual results are documented.
+- Known limitations are disclosed.
+- No claim is made that unimplemented features are complete.
+
+---
+
+21. HOW TO START EXECUTION
+
+Begin with a short repository assessment and a proposed implementation sequence.
+
+Then proceed as follows:
+
+1. Inspect the available project files and environment.
+2. Identify the existing build system, language, modules and dependencies.
+3. List blockers and assumptions.
+4. Create or repair the buildable application foundation.
+5. Implement the LUMEN FLOW design system.
+6. Implement the calculator vertical slice.
+7. Add deterministic calculation tests before extending features.
+8. Add one complete learning experience.
+9. Add grounded AI only after calculation and content boundaries are established.
+10. Expand incrementally using the acceptance criteria above.
+
+After every phase, report:
+
+- What was implemented.
+- Files and modules changed.
+- Tests actually run.
+- Results observed.
+- Remaining defects.
+- Next recommended task.
+
+If a tool or permission is unavailable, state the limitation and provide the appropriate source files, commands or implementation instructions instead of claiming success.
+
+Final instruction: Build CalcMaster 2026 as a calm, beautiful and trustworthy scientific learning environment. Its defining quality must not be the number of features on the home screen, but the reliability of its calculations, the clarity of its explanations, the quality of its learning experiences and the respect it shows for students.

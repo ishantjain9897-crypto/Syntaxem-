@@ -1,0 +1,992 @@
+SYNTAXEM — COMPLETE MASTER APP DEVELOPMENT PROMPT
+
+Premium AI-Powered Educational Ecosystem | Android First | Production-Ready Architecture
+
+1. ROLE AND MISSION
+
+Act as a senior Android engineer, product architect, AI engineer, UI/UX designer, educational content specialist, database architect, and QA engineer.
+
+Build Syntaxem, a complete, modern educational technology application that combines mathematics, scientific learning, calculators, AI-assisted explanations, interactive visual learning, educational games, simulations, and syllabus management into one cohesive experience.
+
+Do not build merely a static UI prototype. Build a functional application with real navigation, persistent data, validated educational content, useful offline capabilities, meaningful interactions, error handling, and automated tests.
+
+Product tagline: Learn. Visualize. Solve.
+
+Product principles
+
+- Free to use, with no advertisements.
+- Privacy-first and transparent about data use.
+- Offline-first for core learning features.
+- Accurate and curriculum-aligned.
+- Designed for mobile devices, with accessibility built in.
+- Modular and expandable to more classes, curricula, subjects, and languages.
+
+Initial target: Android phones and tablets, with Class 11 as the first fully supported academic level. Design the architecture to support Classes 6–12 and additional curricula without requiring a complete rewrite.
+
+---
+
+2. BRAND AND VISUAL IDENTITY
+
+Use the product name Syntaxem everywhere users see the brand.
+
+Create a distinctive identity representing mathematics, logic, science, intelligence, creativity, and visual understanding.
+
+Design Direction 05 — Academic Command Centre
+
+Build a premium interface that feels like a combination of a modern learning laboratory, a visual knowledge workspace, and an intelligent academic dashboard.
+
+Design language:
+
+- Deep midnight navy for selected dark surfaces.
+- Warm off-white for comfortable reading.
+- Cyan or electric blue for interactive learning elements.
+- Restrained amber for highlights and revision reminders.
+- Carefully selected typography with excellent mathematical symbol support.
+- Subtle depth, precise alignment, clean cards, and purposeful motion.
+- Beautiful mathematical visualizations and diagrams.
+- Clear light and dark themes.
+
+Avoid excessive gradients, distracting animation, cluttered dashboards, generic AI-generated artwork, and unnecessary glassmorphism.
+
+Create a consistent design system for colors, spacing, typography, shapes, icons, elevation, buttons, navigation, dialogs, and states.
+
+Include:
+
+- Responsive layouts.
+- Light and dark themes.
+- Dynamic text sizing.
+- Accessible color contrast.
+- TalkBack descriptions.
+- Keyboard navigation where relevant.
+- Reduced-motion support.
+- Empty, loading, success, offline, permission-denied, and error states.
+
+The splash screen must display the Syntaxem logo and tagline. Keep branding consistent throughout onboarding, navigation, settings, documentation, and app assets.
+
+---
+
+3. TECHNOLOGY STACK AND ARCHITECTURE
+
+Use native Android technologies.
+
+Preferred stack:
+
+- Kotlin.
+- Jetpack Compose and Material 3.
+- MVVM with unidirectional data flow.
+- ViewModel and StateFlow.
+- Kotlin Coroutines.
+- Room for structured local data.
+- DataStore for application preferences.
+- Navigation Compose.
+- WorkManager for suitable deferred tasks.
+- Hilt or another consistent dependency injection solution.
+- A tested mathematical expression parser and rendering solution.
+- A graph-rendering component for interactive mind maps and flowcharts.
+- Location APIs for permission-based location retrieval.
+- A replaceable weather-provider interface.
+- Repository pattern and modular feature architecture.
+
+Use current stable, mutually compatible dependencies when implementation begins. Do not invent dependency versions or include abandoned libraries.
+
+Suggested module organization:
+
+- "app"
+- "core:designsystem"
+- "core:database"
+- "core:datastore"
+- "core:curriculum"
+- "core:diagram-model"
+- "core:diagram-renderer"
+- "core:math-engine"
+- "core:network"
+- "core:location"
+- "core:weather"
+- "feature:onboarding"
+- "feature:dashboard"
+- "feature:calculator"
+- "feature:solver"
+- "feature:syllabus"
+- "feature:visual-library"
+- "feature:mindmap"
+- "feature:flowchart"
+- "feature:ai-learning"
+- "feature:games"
+- "feature:simulations"
+- "feature:progress"
+- "feature:settings"
+
+Use clean interfaces between modules. Avoid giant activities, giant composables, tightly coupled ViewModels, duplicated business logic, and hardcoded demo behavior.
+
+Do not rename existing database identifiers, package IDs, or persisted storage keys without a migration plan if upgrading an existing project.
+
+---
+
+4. ONBOARDING AND STUDENT PROFILE
+
+Create a short onboarding process that allows users to select:
+
+- Academic session.
+- Curriculum or board.
+- School, when applicable.
+- Class.
+- Stream, where applicable.
+- Subjects.
+- Preferred language.
+- Light, dark, or system theme.
+- Optional daily learning goal.
+- Optional location-based weather.
+
+Allow users to skip nonessential profile fields.
+
+Do not require an account to use local learning features. Do not collect unnecessary personal data.
+
+If a school-specific syllabus is not available, allow the user to import a syllabus or select a clearly labeled provisional curriculum. Never claim that a syllabus is officially verified without a reliable source.
+
+---
+
+5. HOME DASHBOARD
+
+Create a personalized academic command centre.
+
+Dashboard components:
+
+1. Greeting and current date.
+2. Live device-local clock.
+3. Optional local weather card.
+4. Syllabus completion overview.
+5. Continue Learning.
+6. Favorite subjects.
+7. Quick calculator access.
+8. Recently viewed mind maps and flowcharts.
+9. Revision queue.
+10. Daily practice challenge.
+11. Saved formulas.
+12. Recent study activity.
+13. Downloaded offline content.
+14. AI learning shortcut.
+15. Search across the application.
+
+Allow users to customize dashboard sections where practical.
+
+Use bottom navigation with five primary destinations:
+
+- Home.
+- Calculator.
+- Learn.
+- Games.
+- Progress.
+
+Place syllabus management, visual learning, simulations, AI tools, and settings within appropriate destinations or secondary navigation.
+
+Every visible control must perform a real action. Do not leave decorative buttons pretending to be functional.
+
+---
+
+6. CALCULATOR AND MATHEMATICAL SOLVER
+
+Build a reliable scientific calculator supporting:
+
+- Basic arithmetic.
+- Parentheses and operator precedence.
+- Powers and roots.
+- Fractions.
+- Percentages.
+- Trigonometric functions.
+- Inverse trigonometric functions.
+- Logarithms.
+- Exponential functions.
+- Factorials where valid.
+- Constants such as pi and e.
+- Degree and radian modes.
+- Scientific notation.
+- Memory functions.
+- Calculation history.
+- Copying and sharing results.
+- Dark and light themes.
+
+Handle invalid expressions, division by zero, domain errors, and numerical precision appropriately.
+
+Step-by-step solver
+
+Provide a solver for supported mathematical problem types, including:
+
+- Linear equations.
+- Quadratic equations.
+- Algebraic simplification.
+- Factorization.
+- Systems of equations where supported.
+- Trigonometric identities and equations where supported.
+- Differentiation.
+- Integration.
+- Limits.
+- Sequences and series.
+- Coordinate geometry.
+- Selected Class 11 mathematical topics.
+
+Explain steps clearly, state assumptions, and verify results through substitution or an independent calculation where possible.
+
+Do not invent intermediate steps or claim symbolic proof when only numerical verification was performed.
+
+For unsupported expressions, explain the limitation and offer an alternative approach.
+
+Keep numerical computation separate from natural-language explanations. If AI is used to explain a calculation, validate the underlying result independently whenever possible.
+
+---
+
+7. COMPLETE SYLLABUS MANAGEMENT
+
+Create a comprehensive syllabus explorer linked to the student's chosen curriculum.
+
+Hierarchy:
+
+Curriculum → Academic session → Class → Stream → Subject → Chapter → Topic → Subtopic.
+
+Each subject page should show:
+
+- Total applicable chapters.
+- Completed chapters.
+- In-progress chapters.
+- Chapters needing revision.
+- Not-started chapters.
+- Topic-level progress.
+- Available learning resources.
+- Mind map and flowchart counts.
+- Quiz availability.
+- Saved notes.
+
+Chapter status tracking
+
+Allow these statuses:
+
+- Not started.
+- In progress.
+- Completed.
+- Needs revision.
+
+Support:
+
+- Completion dates.
+- Optional target dates.
+- Personal notes.
+- Revision reminders.
+- Undo.
+- Reopening completed chapters.
+- Topic-level understanding status.
+
+Calculate progress using:
+
+"completed applicable chapters / total applicable chapters × 100"
+
+Exclude explicitly non-applicable chapters and prevent duplicate counting.
+
+Persist all progress in Room so it survives app restarts, device reboots, and offline usage.
+
+Provide data export and import with validation and conflict handling.
+
+Curriculum accuracy
+
+Build a versioned curriculum ingestion pipeline.
+
+Every curriculum package should identify:
+
+- Curriculum authority.
+- Academic session.
+- Class and stream.
+- Subject and chapter identifiers.
+- Source references.
+- Retrieval or verification date.
+- Content version.
+- Review status.
+
+For Vidya Bharati, use the exact school's published syllabus where available. Do not assume that all schools under a similarly named organization have identical chapter lists.
+
+Never silently mix syllabi from different boards or academic sessions.
+
+---
+
+8. 20,000+ MIND MAPS AND FLOWCHARTS
+
+Build a dedicated visual learning library designed to grow to 20,000+ distinct, validated educational visuals across the supported syllabus.
+
+The application must display actual content counts. Never use fabricated counts or claim the library is complete before the content exists.
+
+Visual categories
+
+Support:
+
+1. Chapter overview mind maps.
+2. Topic mind maps.
+3. Subtopic maps.
+4. Concept relationship maps.
+5. Definition maps.
+6. Formula maps.
+7. Theorem maps.
+8. Derivation flowcharts.
+9. Problem-solving flowcharts.
+10. Physics law maps.
+11. Chemistry reaction pathways.
+12. Biology process diagrams.
+13. Classification trees.
+14. Cause-and-effect diagrams.
+15. Comparison maps.
+16. Decision trees.
+17. Algorithm flowcharts.
+18. History timelines.
+19. Geography process maps.
+20. Economics relationship diagrams.
+21. Accountancy workflows.
+22. Business studies decision maps.
+23. Computer science logic diagrams.
+24. Grammar concept maps.
+25. Literature theme and character maps.
+26. Exam revision summaries.
+27. Common-mistake maps.
+28. Prerequisite maps.
+29. Inter-chapter relationship maps.
+30. Whole-subject master maps.
+
+Choose the formats relevant to each topic instead of forcing every category onto every subject.
+
+Mind map requirements
+
+Each mind map should contain:
+
+- Central topic.
+- Hierarchical branches.
+- Concise labels.
+- Correct conceptual relationships.
+- Relevant definitions, formulas, examples, or exceptions.
+- Curriculum and topic references.
+- Learning objective.
+- Difficulty level.
+- Provenance and verification status.
+
+Provide:
+
+- Radial layout.
+- Tree layout.
+- Hierarchical concept layout.
+- Expand and collapse.
+- Zoom and pan.
+- Fit-to-screen.
+- Node search.
+- Selected-node explanations.
+- Related diagrams.
+- Accessible outline view.
+
+Flowchart requirements
+
+Support:
+
+- Start and end nodes.
+- Process nodes.
+- Decision nodes.
+- Input/output nodes.
+- Connectors and directional arrows.
+- Branching and merging.
+- Multi-section charts.
+- Formula-solving workflows.
+- Scientific processes.
+- Algorithms and decision procedures.
+
+Validate structural integrity, node references, appropriate branch paths, and readability.
+
+Reaching the 20,000 target
+
+Build a content pipeline that tracks:
+
+- Generated assets.
+- Approved assets.
+- Rejected assets.
+- Verified assets.
+- Duplicate assets.
+- Pending review.
+- Published assets.
+- Downloadable assets.
+
+Use semantic similarity and content fingerprints to detect duplicate or near-duplicate visuals.
+
+Each diagram must have a distinct educational objective or meaningful difference.
+
+Use templates for consistent layout, AI for content organization where appropriate, and human review for content requiring additional assurance.
+
+Never claim AI-generated content is officially verified or teacher-approved unless that review has actually occurred.
+
+Standard generation prompt
+
+For each visual, use a structured generation request such as:
+
+“You are a curriculum-aligned educational visual designer.
+
+Create one original, accurate, mobile-readable [MIND MAP / FLOWCHART].
+
+Curriculum: {{curriculum}}
+Academic session: {{session}}
+Class: {{class}}
+Stream: {{stream}}
+Subject: {{subject}}
+Chapter: {{chapter}}
+Topic: {{topic}}
+Subtopic: {{subtopic}}
+Learning objective: {{learning_objective}}
+Difficulty: {{difficulty}}
+Purpose: {{purpose}}
+
+Requirements:
+
+1. Use the supplied curriculum content as the source of truth.
+2. Do not invent chapter names, formulas, definitions, or facts.
+3. Represent concepts and relationships accurately.
+4. Use concise, age-appropriate labels.
+5. Include relevant examples, formulas, exceptions, and common mistakes only where appropriate.
+6. Avoid visual clutter.
+7. Make the diagram readable on a mobile screen.
+8. Ensure a distinct learning objective relative to existing diagrams.
+9. Identify uncertain content for review.
+10. Include provenance and verification metadata.
+11. Return structured diagram data conforming to the validated schema.
+12. Include a short explanation and optional revision questions where appropriate.
+
+Do not return only a screenshot when an interactive diagram is required.”
+
+Visual library screens
+
+Build:
+
+- Visual Learning Home.
+- Syllabus Explorer.
+- Subject Library.
+- Chapter Visuals.
+- Interactive Viewer.
+- Favorites.
+- Recent Visuals.
+- Downloads.
+- Visual Generator.
+- Content Coverage Dashboard.
+
+Filters:
+
+- Class.
+- Subject.
+- Chapter.
+- Topic.
+- Diagram type.
+- Difficulty.
+- Purpose.
+- Verification status.
+- Offline availability.
+
+---
+
+9. AI-POWERED LEARNING ASSISTANT
+
+Create a learning assistant that helps students understand concepts instead of merely returning answers.
+
+Features:
+
+- Explain a concept at different difficulty levels.
+- Explain mathematical steps.
+- Summarize a chapter.
+- Generate practice questions.
+- Explain mistakes in submitted work.
+- Create revision plans.
+- Generate a mind map or flowchart.
+- Compare concepts.
+- Provide examples.
+- Answer questions about supplied learning material.
+- Produce short quizzes.
+- Suggest prerequisite concepts.
+
+AI behavior
+
+- Clearly distinguish verified source content from generated explanations.
+- Avoid fabricated citations.
+- Use the selected curriculum and class context.
+- Explain uncertainty.
+- Avoid exposing private student data to external services without explicit consent.
+- Never require a network connection for features that can operate locally.
+- Handle unavailable AI services gracefully.
+- Keep API keys and secrets out of the Android application package.
+- Use a protected backend or provider-supported authentication mechanism.
+- Apply rate limits, timeouts, error handling, and appropriate content safeguards.
+
+The core calculator, syllabus tracker, saved content, and downloaded visuals must remain usable when AI services are unavailable.
+
+---
+
+10. EDUCATIONAL GAMES
+
+Create a dedicated learning games centre.
+
+Game types:
+
+1. Formula matching.
+2. Equation-solving challenges.
+3. Concept matching.
+4. Chapter quizzes.
+5. Mind map completion.
+6. Flowchart ordering.
+7. Scientific classification.
+8. Reaction-sequence ordering.
+9. Physics concept challenges.
+10. Biology process ordering.
+11. Logic puzzles.
+12. Pattern recognition.
+13. Memory cards.
+14. Timed practice.
+15. Error detection.
+16. Concept comparison.
+17. Daily mixed challenge.
+18. Revision streak challenges.
+19. Topic mastery challenges.
+20. Personal best challenges.
+
+Every game should:
+
+- Teach a defined concept.
+- Provide immediate feedback.
+- Explain incorrect answers.
+- Adjust difficulty appropriately.
+- Save progress locally.
+- Offer an accessible non-timed mode where practical.
+- Avoid manipulative streak mechanics or pressure-based notifications.
+
+Use non-monetary learning points, badges, and achievements. Points must not be redeemable for gambling, financial rewards, or purchases.
+
+---
+
+11. INTERACTIVE SCIENCE AND MATHEMATICS SIMULATIONS
+
+Build a simulation library with a modular architecture.
+
+Start with:
+
+- Function graphs.
+- Coordinate geometry.
+- Trigonometric functions.
+- Quadratic curves.
+- Vector visualization.
+- Projectile-motion models.
+- Newton's laws demonstrations.
+- Basic wave behavior.
+- Simple harmonic motion.
+- Electric circuit concepts.
+- Atomic structure models.
+- Chemical bonding visualizations.
+- Molecular geometry.
+- Reaction-rate concepts.
+- Cell structure.
+- Genetics probability.
+- Ecological relationships.
+- Probability experiments.
+- Statistical distributions.
+
+Provide interactive sliders, parameter controls, reset, pause, step-through explanations, and clearly labeled variables.
+
+Simulations must distinguish idealized models from real-world behavior and disclose simplifying assumptions.
+
+Do not imply that a simulation replaces supervised laboratory procedures or safety instructions.
+
+---
+
+12. REAL-TIME CLOCK AND LOCAL WEATHER
+
+Clock
+
+Use the device's local time and timezone to display:
+
+- Current time.
+- Date.
+- Day of the week.
+- Optional 12-hour or 24-hour format.
+
+Update appropriately and respond to timezone and clock changes.
+
+GPS is not required to display the device's local clock.
+
+Weather
+
+Create an optional dashboard weather widget.
+
+Important: GPS provides location information, not temperature. Weather requires an actual weather data provider and an internet connection for fresh data.
+
+Workflow:
+
+1. Ask permission only when the user enables location-based weather.
+2. Request foreground location access only.
+3. Prefer approximate location when it is sufficient.
+4. Obtain a city-level weather result from a provider.
+5. Fetch temperature and relevant conditions from the provider.
+6. Display the observation or forecast timestamp and units.
+7. Cache the last successful result.
+8. Display the cache's age when showing stale data.
+9. Offer manual city selection.
+10. Provide a clear unavailable state when no valid data exists.
+
+Never invent current temperature, silently request background location, or store precise coordinates unnecessarily.
+
+Respect provider attribution, rate limits, and terms. Protect provider secrets appropriately.
+
+---
+
+13. OFFLINE-FIRST DATA AND STORAGE
+
+Use Room for:
+
+- Curriculum records.
+- Subjects.
+- Chapters.
+- Topics.
+- Chapter progress.
+- Topic progress.
+- Mind maps.
+- Flowcharts.
+- Saved formulas.
+- Calculation history.
+- Favorites.
+- Quiz results.
+- Game progress.
+- Simulation preferences.
+- Downloaded content metadata.
+- Cached weather snapshots.
+
+Use DataStore for appropriate preferences such as theme, selected class, language, and dashboard configuration.
+
+Requirements:
+
+- Versioned database migrations.
+- Stable IDs.
+- Efficient indexes.
+- Searchable content.
+- Duplicate prevention.
+- Safe import and export.
+- Graceful storage errors.
+- Offline availability indicators.
+- Data integrity checks.
+- Clear deletion controls.
+- No unnecessary personal-data collection.
+
+Use downloadable subject and chapter packs to prevent the initial app installation from becoming excessively large.
+
+Do not download all 20,000 diagrams automatically. Let users choose what to download.
+
+---
+
+14. SEARCH AND CONTENT DISCOVERY
+
+Implement a unified search experience covering:
+
+- Subjects.
+- Chapters.
+- Topics.
+- Mind maps.
+- Flowcharts.
+- Formulas.
+- Saved calculations.
+- Learning explanations.
+- Games.
+- Simulations.
+
+Support typo-tolerant matching where practical, filters, recent searches, and relevant suggestions.
+
+Show results based on actual available content. Avoid showing empty destinations or fake search results.
+
+---
+
+15. PROGRESS AND PERSONALIZATION
+
+Create a Progress Dashboard displaying:
+
+- Syllabus completion.
+- Chapter statuses.
+- Topic understanding.
+- Quiz performance.
+- Recently studied concepts.
+- Saved visual learning resources.
+- Revision reminders.
+- Weak topics identified from practice.
+- Personal learning goals.
+- Game achievements.
+
+Recommendations should be explainable and based on actual app activity.
+
+Do not equate time spent, diagrams opened, or game points with mastery.
+
+Let students edit, reset, or export their personal progress.
+
+---
+
+16. NOTIFICATIONS AND REMINDERS
+
+Support optional local reminders for:
+
+- Planned study sessions.
+- Chapter revision.
+- User-defined target dates.
+- Saved revision queues.
+
+Ask for notification permission when needed.
+
+Avoid unnecessary notifications, intrusive advertising, background tracking, and shame-based messages.
+
+All reminders must have user controls to disable, reschedule, or delete them.
+
+---
+
+17. SECURITY, PRIVACY, AND PERMISSIONS
+
+Follow privacy-by-design principles.
+
+- No advertisements.
+- No selling user data.
+- No unnecessary analytics.
+- No hidden tracking.
+- No background location collection for weather.
+- No collection of precise location unless necessary and explicitly permitted.
+- No API secrets embedded in the application package.
+- Secure network communication.
+- Validate imported files and external content.
+- Avoid executing untrusted generated code.
+- Protect database migrations and user data.
+- Provide understandable privacy disclosures.
+- Request permissions only when the associated feature is used.
+
+Allow core features to work without creating an account.
+
+---
+
+18. ACCESSIBILITY AND INTERNATIONALIZATION
+
+Support:
+
+- Screen-reader labels.
+- Logical focus order.
+- Sufficient contrast.
+- Scalable text.
+- Touch targets appropriate for mobile use.
+- Reduced motion.
+- Keyboard navigation where appropriate.
+- Accessible alternatives to visual diagrams.
+- Localized strings rather than hardcoded interface text.
+
+Prepare the application for English and Hindi, with additional languages supported through resource files.
+
+Ensure mathematical symbols, equations, Devanagari text, and mixed-language content render correctly.
+
+---
+
+19. PERFORMANCE AND RELIABILITY
+
+Optimize for typical Android devices, including devices with limited memory and storage.
+
+Requirements:
+
+- Lazy rendering for large libraries.
+- Efficient database queries.
+- Pagination or incremental loading.
+- Background processing for expensive imports.
+- Caching for frequently accessed resources.
+- Smooth diagram pan and zoom.
+- No blocking network calls on the main thread.
+- Predictable memory use.
+- Clear error recovery.
+- No crashes when a provider or AI service is unavailable.
+
+Test large diagram graphs and large content libraries using realistic synthetic datasets. Do not pretend synthetic test records are published educational content.
+
+---
+
+20. TESTING AND QUALITY ASSURANCE
+
+Implement unit, integration, database migration, and UI tests.
+
+Calculator tests
+
+- Operator precedence.
+- Parentheses.
+- Trigonometric modes.
+- Floating-point behavior.
+- Invalid expressions.
+- Domain errors.
+
+Syllabus tests
+
+- Correct completion counts.
+- Status transitions.
+- Duplicate prevention.
+- Import/export.
+- Data persistence after restart.
+- Curriculum version changes.
+
+Visual library tests
+
+- Graph schema validation.
+- Invalid node references.
+- Duplicate detection.
+- Flowchart connectivity.
+- Search and filtering.
+- Offline rendering.
+- Accessibility.
+- Large diagram performance.
+
+Weather and clock tests
+
+- Permission granted or denied.
+- Location unavailable.
+- Network unavailable.
+- Expired cache.
+- Provider error.
+- Timezone change.
+- Manual city selection.
+
+General application tests
+
+- First launch.
+- Navigation.
+- Light and dark themes.
+- Database migration.
+- Low storage.
+- Offline use.
+- Large text.
+- Screen reader.
+- App restart.
+- Background and foreground transitions.
+
+Run the available build and test commands, resolve errors, and report any tests that could not be executed.
+
+---
+
+21. IMPLEMENTATION PHASES
+
+Build in the following order.
+
+Phase 1 — Foundation
+
+- Android project structure.
+- Branding.
+- Design system.
+- Navigation.
+- Onboarding.
+- Local database.
+- Theme support.
+
+Phase 2 — Core learning
+
+- Scientific calculator.
+- Supported step solver.
+- Syllabus explorer.
+- Chapter progress.
+- Persistent local storage.
+
+Phase 3 — Visual learning
+
+- Mind map viewer.
+- Flowchart viewer.
+- Structured diagram schema.
+- Search and filters.
+- Favorites.
+- Offline content packs.
+
+Phase 4 — Curriculum content pipeline
+
+- Verified syllabus ingestion.
+- Sample subject content.
+- Diagram validation.
+- Duplicate detection.
+- Review workflow.
+- Actual coverage reporting.
+- Scalable path to 20,000+ distinct visuals.
+
+Phase 5 — AI and learning tools
+
+- AI learning interface.
+- Visual generator.
+- Practice questions.
+- Chapter summaries.
+- Explanation and validation workflows.
+
+Phase 6 — Games and simulations
+
+- Initial educational games.
+- Progress tracking.
+- Interactive scientific models.
+- Accessible alternatives.
+
+Phase 7 — Environment and personalization
+
+- Device-local clock.
+- Optional location-based weather.
+- Offline cache.
+- Study reminders.
+- Personalized dashboard.
+
+Phase 8 — Production readiness
+
+- Automated tests.
+- Performance optimization.
+- Privacy review.
+- Accessibility review.
+- Error handling.
+- Release build.
+- Documentation.
+
+Keep the application buildable at every phase. Do not generate the entire project as one untested block of code.
+
+---
+
+22. REQUIRED DELIVERABLES
+
+Deliver:
+
+1. Complete Android project source.
+2. Working Kotlin and Jetpack Compose screens.
+3. Consistent Syntaxem branding.
+4. Navigation and design system.
+5. Calculator and supported step solver.
+6. Curriculum and syllabus tracking.
+7. Room entities, DAOs, repositories, and migrations.
+8. Interactive mind map and flowchart renderer.
+9. Versioned diagram schema.
+10. Content validation and duplicate-detection pipeline.
+11. AI learning integration with protected credentials.
+12. Educational games and simulation framework.
+13. Real-time clock and optional weather integration.
+14. Offline content pack support.
+15. Unit and UI tests.
+16. Build and setup documentation.
+17. Privacy and permission documentation.
+18. A report of verified, provisional, pending, and unavailable curriculum content.
+19. A real count of created and validated diagrams.
+20. A clear list of completed, incomplete, and blocked features.
+
+For every feature, state whether it is fully implemented, partially implemented, a prototype, or awaiting external credentials or verified content.
+
+Do not claim successful compilation, testing, deployment, or content verification unless the relevant operation actually succeeded.
+
+---
+
+23. FINAL ACCEPTANCE CRITERIA
+
+Syntaxem is ready for a release candidate only when:
+
+- The app builds successfully.
+- Navigation works.
+- The calculator passes its tests.
+- Chapter progress survives app restarts.
+- Curriculum content has traceable provenance.
+- Mind maps and flowcharts render interactively.
+- Invalid diagrams are rejected.
+- Search and filtering return real records.
+- Offline content behaves correctly.
+- AI failure does not break core learning.
+- Weather never invents current conditions.
+- Permissions are requested appropriately.
+- Accessibility checks have been performed.
+- Database migrations are tested.
+- No critical crashes remain in the tested workflows.
+- Actual library counts are reported honestly.
+
+Begin by implementing a small, fully functional end-to-end slice. Verify it, then expand systematically. Prioritize correctness, maintainability, educational value, and user trust over superficial feature counts.
+
+Final product identity: Syntaxem — Learn. Visualize. Solve.

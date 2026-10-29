@@ -1,0 +1,51 @@
+{
+  "app": "Syntaxem",
+  "schemaVersion": 1,
+  "exportedAt": 1793232000000,
+  "curriculumId": "curr_cbse_11_science_2026",
+  "academicSession": "2026–27",
+  "classLevel": 11,
+  "authority": "CBSE / NCERT",
+  "chapterProgress": [
+    {
+      "chapterId": "ch_11_m_01",
+      "title": "Sets",
+      "status": "COMPLETED",
+      "completedAt": 1793145600000,
+      "lastUpdatedAt": 1793145600000,
+      "targetDate": 1793145600000,
+      "personalNotes": "Completed NCERT Exercises 1.1 to 1.6; reviewed power sets.",
+      "revisionDueAt": 0
+    },
+    {
+      "chapterId": "ch_11_m_02",
+      "title": "Relations & Functions",
+      "status": "COMPLETED",
+      "completedAt": 1793200000000,
+      "lastUpdatedAt": 1793200000000,
+      "targetDate": 1793200000000,
+      "personalNotes": "Domain and Range for rational functions.",
+      "revisionDueAt": 0
+    },
+    {
+      "chapterId": "ch_11_m_03",
+      "title": "Trigonometric Functions",
+      "status": "IN_PROGRESS",
+      "completedAt": 0,
+      "lastUpdatedAt": 1793230000000,
+      "targetDate": 1793800000000,
+      "personalNotes": "Practicing ASTC quadrant rules and sum/difference identities.",
+      "revisionDueAt": 0
+    },
+    {
+      "chapterId": "ch_11_p_03",
+      "title": "Motion in a Plane",
+      "status": "NEEDS_REVISION",
+      "completedAt": 0,
+      "lastUpdatedAt": 1793220000000,
+      "targetDate": 1793500000000,
+      "personalNotes": "Revisit maximum height and range formulas R = (v0^2 sin 2θ)/g.",
+      "revisionDueAt": 0
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Calculator Body (Centered within 66dp safe-zone: x=30 to 78, y=24 to 84) -->
+    <path
+        android:fillColor="#1E293B"
+        android:strokeColor="#38BDF8"
+        android:strokeWidth="2.5"
+        android:pathData="M34,26 h40 a6,6 0 0 1 6,6 v50 a6,6 0 0 1 -6,6 h-40 a6,6 0 0 1 -6,-6 v-50 a6,6 0 0 1 6,-6 z" />
+
+    <!-- Digital Display Screen -->
+    <path
+        android:fillColor="#0F172A"
+        android:strokeColor="#0EA5E9"
+        android:strokeWidth="1.2"
+        android:pathData="M34,32 h40 a2,2 0 0 1 2,2 v14 a2,2 0 0 1 -2,2 h-40 a2,2 0 0 1 -2,-2 v-14 a2,2 0 0 1 2,-2 z" />
+
+    <!-- Math wave symbol inside display -->
+    <path
+        android:strokeColor="#38BDF8"
+        android:strokeWidth="1.8"
+        android:fillColor="#00000000"
+        android:pathData="M38,41 Q43,35 48,41 T58,41 T68,41" />
+
+    <!-- Keypad Keys - Row 1 -->
+    <path
+        android:fillColor="#334155"
+        android:pathData="M35,54 h9 v6 h-9 z M49,54 h10 v6 h-10 z M64,54 h9 v6 h-9 z" />
+
+    <!-- Keypad Keys - Row 2 -->
+    <path
+        android:fillColor="#334155"
+        android:pathData="M35,63 h9 v6 h-9 z M49,63 h10 v6 h-10 z M64,63 h9 v6 h-9 z" />
+
+    <!-- Keypad Keys - Row 3 (Accent Action Keys) -->
+    <path
+        android:fillColor="#0284C7"
+        android:pathData="M35,72 h9 v6 h-9 z M49,72 h10 v6 h-10 z" />
+    <path
+        android:fillColor="#F59E0B"
+        android:pathData="M64,72 h9 v6 h-9 z" />
+</vector>

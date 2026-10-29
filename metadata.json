@@ -1,0 +1,6 @@
+{
+  "name": "Syntaxem",
+  "description": "Syntaxem: Class 11–12 Mathematics & Physics interactive learning platform with Mind Maps, Flowcharts, 108 Concept Games, Simulations, and Scientific Calculator.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

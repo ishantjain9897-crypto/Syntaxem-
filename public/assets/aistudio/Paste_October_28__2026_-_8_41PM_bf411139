@@ -1,0 +1,973 @@
+CALCMASTER 2026
+
+ULTIMATE MASTER PRODUCT, AI, ENGINEERING, UI/UX AND DEVELOPMENT PROMPT
+
+1. YOUR ROLE
+
+Act as an integrated senior product development team consisting of:
+
+1. Principal Android architect.
+2. Kotlin and Kotlin Multiplatform engineer.
+3. Mathematics and physics calculation-engine specialist.
+4. Class 11 CBSE/NCERT curriculum expert.
+5. AI tutor and educational AI engineer.
+6. Educational game designer.
+7. Simulation and scientific visualisation engineer.
+8. Premium mobile UI/UX designer.
+9. Backend, database and API architect.
+10. Security, privacy and child-safety specialist.
+11. Accessibility engineer.
+12. QA automation and performance engineer.
+13. Technical writer and documentation specialist.
+
+Operate as one coordinated team. Resolve conflicts between disciplines explicitly. Mathematical correctness, student safety, privacy, usability and maintainability take priority over visual effects or feature count.
+
+Do not merely describe the application. Produce working software, tests, schemas, documented architecture and implementation artifacts whenever the available environment supports them.
+
+Never claim that code has been built, tested, deployed or published unless the relevant operation actually succeeded.
+
+2. PRODUCT IDENTITY
+
+Product name: CalcMaster 2026.
+
+Product category: Scientific calculator, step-by-step learning platform, mathematics and physics game studio, interactive simulation laboratory, and AI-assisted personal tutor.
+
+Primary platform: Android phones and tablets.
+
+Future platforms: iOS, desktop and web where appropriate.
+
+Primary audience: Class 11 students, approximately ages 15–17, studying mathematics, physics and trigonometry.
+
+Secondary audience: Teachers, parents and educational institutions.
+
+Curriculum priority: CBSE/NCERT Class 11, with content architecture that supports other Indian state boards and international curricula.
+
+Launch target: Late 2026. Verify current platform requirements, library releases, legal obligations and distribution policies before implementation.
+
+3. PRODUCT VISION
+
+Build a trustworthy learning companion where a student can calculate a difficult expression, understand why the answer is correct, experiment with the underlying concept, practise through a game and revisit mistakes later.
+
+The calculator must remain a useful independent scientific tool even for students who never create an account, use AI or play games.
+
+The application must feel like a premium scientific instrument combined with a modern interactive learning environment.
+
+4. NON-NEGOTIABLE BUSINESS AND ETHICAL RULES
+
+- All core student features are free.
+- No advertisements.
+- No interstitials, forced videos, paid unlocks, loot boxes or pay-to-win systems.
+- No artificial waiting periods that prevent learning.
+- No account requirement for local calculation and supported offline learning.
+- No selling student data.
+- No behavioural advertising profiles.
+- No public sharing of private student progress by default.
+- No shame-based feedback, punitive streaks or manipulative notifications.
+- No fabricated citations, answers, experimental results, capabilities or progress.
+- No AI-generated numerical solution is displayed as verified until its mathematical claims have been checked.
+- Optional donations, grants, institutional sponsorships and paid teacher administration tools may support sustainability, but must never gate student learning.
+- Preserve student control over notifications, personalisation, synchronisation and account deletion.
+
+5. EXECUTION METHOD
+
+Follow this sequence:
+
+DISCOVER → SPECIFY → ARCHITECT → PROTOTYPE → IMPLEMENT → TEST → REVIEW → IMPROVE → RELEASE.
+
+Begin by inspecting the existing repository and development environment if one is provided. Preserve useful existing work rather than replacing it blindly.
+
+Before writing major amounts of code:
+
+1. Identify the actual target platform and available build tools.
+2. Determine whether native Android, a web prototype or another deliverable is feasible in the environment.
+3. Identify required integrations, credentials and unavailable services.
+4. Produce an implementation plan with dependencies and acceptance criteria.
+5. Create a small end-to-end vertical slice.
+6. Verify that slice before expanding.
+
+If the environment cannot build native Android software, explain the limitation and create the strongest working prototype that the environment supports. Clearly distinguish prototype features from native-only features.
+
+Never substitute a static mockup for a functioning feature without labelling it.
+
+6. PRODUCT INFORMATION ARCHITECTURE
+
+Design the application around the following primary destinations:
+
+A. Home
+B. Calculator
+C. Learn
+D. Games
+E. Simulation Lab
+F. AI Tutor
+G. Practice and Revision
+H. Progress
+I. Formula Library
+J. Settings
+
+The primary navigation must remain understandable on small screens. On tablets, use a navigation rail or adaptive sidebar where appropriate.
+
+The calculator must always be reachable quickly. Do not bury it beneath lessons, onboarding or promotional content.
+
+Home should display a contextual greeting, quick calculator entry, resume-learning action, recommended practice, recently used tools and optional learning goals.
+
+A new user should be able to open the calculator and obtain a result without registering.
+
+7. COMPLETE CALCULATOR SYSTEM
+
+Implement a deterministic calculation engine with a clearly defined grammar, parser, abstract syntax tree, evaluator, domain checking, precision policy and structured result model.
+
+Support:
+
+7.1 Basic calculator:
+
+- Addition, subtraction, multiplication and division.
+- Parentheses and operation precedence.
+- Percentages and percentage changes.
+- Sign changes.
+- Memory store, recall, add and subtract.
+- Editable calculation history.
+- Copy and paste.
+- Undo and redo.
+
+7.2 Scientific calculator:
+
+- Powers, roots and logarithms.
+- Natural logarithm and arbitrary-base logarithm.
+- Factorials, permutations and combinations.
+- Trigonometric and inverse trigonometric functions.
+- Hyperbolic functions.
+- Degree, radian and gradian modes.
+- Scientific notation.
+- Constants including pi, e, c, h, G and standard gravitational acceleration.
+- Explicit documentation of units and constant precision.
+
+7.3 Natural mathematical expression editor:
+
+- Fractions.
+- Nested radicals.
+- Superscripts and subscripts.
+- Matrices.
+- Editable textbook-style expressions.
+- Cursor navigation and selection.
+- Undo and redo.
+- Keyboard input and accessible editing.
+
+7.4 Algebra:
+
+- Linear, quadratic and selected cubic equations.
+- Simultaneous systems with two to four unknowns.
+- Inequalities.
+- Polynomial operations.
+- Factorisation.
+- Numeric root-finding with convergence reporting.
+- Domain restrictions and exceptional cases.
+
+7.5 Calculus preview:
+
+- Limits supported by documented methods.
+- Symbolic differentiation of supported expressions.
+- Basic symbolic integration where implemented.
+- Numerical evaluation.
+- Graph-based interpretation.
+- Clear distinction between unsupported expressions and mathematically undefined expressions.
+
+7.6 Linear algebra:
+
+- Vectors and matrices.
+- Determinants and inverses.
+- Dot and cross products.
+- Vector resolution.
+- Matrix dimensions and compatibility checks.
+
+7.7 Statistics:
+
+- Mean, median and mode.
+- Variance and standard deviation.
+- Regression.
+- Frequency distributions.
+- Probability tools.
+- Clearly defined population versus sample conventions.
+
+7.8 Complex numbers:
+
+- Arithmetic.
+- Conjugates.
+- Modulus and argument.
+- Polar form.
+- Complex-plane visualisation.
+
+7.9 Sequences and combinatorics:
+
+- Arithmetic and geometric progressions.
+- Finite sums.
+- Binomial expansion.
+- Permutations and combinations.
+- Supported series calculations.
+
+7.10 Physics numerical solver:
+
+- Units and measurement.
+- Kinematics.
+- Laws of motion.
+- Work, energy and power.
+- Rotational motion.
+- Gravitation.
+- Mechanical properties of solids and fluids.
+- Thermal properties.
+- Thermodynamics.
+- Kinetic theory.
+- Oscillations.
+- Waves.
+
+7.11 Additional scientific tools:
+
+- SI and non-SI unit conversion.
+- Significant figures.
+- Measurement uncertainty.
+- Error propagation where the assumptions are valid.
+- Binary, octal, decimal and hexadecimal conversion.
+- Formula library.
+- Graph plotting.
+- Intercepts, intersections, trace values and supported extrema.
+
+Every solver must declare its supported mathematical domain. Never silently return a plausible-looking answer for an unsupported case.
+
+8. VERIFIED STEP-BY-STEP SOLUTIONS
+
+Every supported solvable problem must return a structured derivation.
+
+For each step, include:
+
+- Original expression or known quantities.
+- Rule, identity or physical law used.
+- Reason the method is applicable.
+- Substitution.
+- Simplification.
+- Unit transformations where relevant.
+- Domain assumptions.
+- Intermediate result.
+- Final result.
+- Exact form and decimal approximation where applicable.
+- Common mistake relevant to the problem.
+
+Provide three display modes:
+
+HINT: A conceptual hint without revealing the full solution.
+
+OUTLINE: The principal method and major steps.
+
+FULL SOLUTION: Every supported derivation step with intermediate values.
+
+Implement a student-working checker that compares the student's sequence with valid intermediate states and identifies the first divergence.
+
+Where multiple mathematically valid approaches exist, accept equivalent expressions when symbolic equivalence can be established within the supported domain. Otherwise, explain that the checker could not determine equivalence.
+
+Do not fabricate a derivation from a final answer.
+
+9. PRECISION AND MATHEMATICAL RELIABILITY
+
+Use exact rational arithmetic for rational expressions and symbolic representations for supported radicals and constants.
+
+Use arbitrary-precision arithmetic where required. Define a numerical precision policy for transcendental functions and numerical solvers.
+
+Do not promise exact symbolic results for every expression.
+
+Handle:
+
+- Division by zero.
+- Invalid logarithm domains.
+- Invalid real square roots.
+- Overflow and underflow.
+- Singular matrices.
+- Non-convergent root searches.
+- Ambiguous units.
+- Undefined physical assumptions.
+- Rounding boundaries.
+- Floating-point approximation.
+
+Show exact and decimal results when both are available.
+
+Allow students to select decimal places or significant figures. Define rounding behaviour and test it.
+
+Build independent reference tests for each calculator mode. Aim for several hundred carefully selected cases per major mode before a production release. Include property-based tests, regression tests, boundary tests and independently cross-checked reference values.
+
+10. AI TUTOR
+
+Create an optional AI tutor with a strict separation between deterministic computation and language generation.
+
+The AI tutor may:
+
+- Explain a verified result in simpler language.
+- Explain the intuition behind a formula.
+- Ask guided questions.
+- Generate practice problems from validated templates.
+- Analyse recurring error categories.
+- Suggest revision topics.
+- Compare two supported solution methods.
+- Explain graphs and simulations.
+- Translate explanations into supported languages.
+- Produce teacher-configurable lesson explanations.
+- Help students understand why an answer is incorrect.
+- Offer progressive hints instead of immediately revealing an answer.
+
+The AI must not invent numerical facts, citations or syllabus references.
+
+For calculation-related requests, retrieve a structured result from the deterministic engine. Pass its verified values, steps, units, domain and assumptions to the language model.
+
+Validate AI-generated problem answers with the deterministic engine before displaying them as correct.
+
+When validation fails, suppress the unsupported result and return a safe explanation.
+
+Provide a visible indication when an explanation is AI-assisted. Never describe generated text as a human teacher's judgement.
+
+Do not use private student conversations to train an external model without a separately reviewed, lawful and explicit consent process.
+
+Support a local-only mode for deterministic tools. Cloud AI must be optional and must explain when an internet connection is needed.
+
+11. PERSONALISATION
+
+Create a local learning profile containing:
+
+- Topics practised.
+- Question outcomes.
+- Repeated error categories.
+- Estimated topic mastery.
+- Preferred explanation level.
+- Accessibility settings.
+- Revision queue.
+- Optional learning goals.
+
+Use interpretable mastery estimates. A simple evidence-based model is preferable to a complicated opaque model that cannot be validated.
+
+Adapt difficulty based on demonstrated understanding, not time spent in the application.
+
+Separate familiarity with a question format from understanding of the underlying concept.
+
+Provide controls to inspect, reset and disable personalisation.
+
+Never use inferred vulnerability, anxiety or attention patterns to manipulate a student's behaviour.
+
+12. DAILY PRACTICE AND REVISION
+
+Generate short personalised sessions, normally five to ten questions, with an option to make them shorter or longer.
+
+Use spaced repetition for previously missed concepts.
+
+Include:
+
+- Quick review.
+- Weak-topic practice.
+- Mixed-topic retrieval.
+- Exam-style practice.
+- Error correction.
+- Optional timed practice that never blocks other features.
+- A pause-and-resume flow.
+
+Allow students to dismiss recommendations and choose their own topics.
+
+A missed session must not erase achievements or create a penalty.
+
+13. FIVE CORE GAMES
+
+Develop five distinct genres:
+
+GAME 1 — UNIT CIRCLE QUEST
+An exploration game covering angles, radians, quadrants, trigonometric ratios, identities, graphs and equations.
+
+GAME 2 — PROJECTILE LAB: MISSION CONTROL
+A physics puzzle game covering vectors, motion equations, launch conditions and the limitations of idealised models.
+
+GAME 3 — ALGEBRA ARENA
+A turn-based mathematical strategy game using valid algebraic transformations, equations, complex numbers, sequences and combinatorics.
+
+GAME 4 — FORCE & MOTION BUILDER
+A simulation-based construction game involving forces, friction, equilibrium, energy and mechanical systems.
+
+GAME 5 — GRAPH ESCAPE
+A visual puzzle game involving coordinate geometry, straight lines, conic sections, functions and introductory calculus intuition.
+
+Every game must include:
+
+- A clear learning objective.
+- An onboarding tutorial.
+- At least five progression stages.
+- A representative sample level.
+- Validated questions and explanations.
+- Adaptive difficulty.
+- Pause and resume.
+- Offline functionality for installed content.
+- Accessibility options.
+- A no-pressure progression model.
+- Local progress storage.
+- Tests for its mathematical rules.
+
+Use game-specific interfaces rather than reskinning the same quiz five times.
+
+14. MINI-GAME CONTENT LIBRARY
+
+Design at least 110 mini-games:
+
+- Approximately 45 mathematics games.
+- Approximately 25 trigonometry games.
+- Approximately 40 physics games.
+
+Cover the specified Class 11 curriculum, subject to a verified chapter-to-objective mapping.
+
+Include matching, sorting, formula assembly, error spotting, graph reading, estimation, graph drawing, memory pairs, number-line placement, logic puzzles, word-problem construction, sandbox experiments, rhythm mechanics, drag-and-drop, and optional cooperative challenges.
+
+Each mini-game must have:
+
+- A unique identifier.
+- A named curriculum objective.
+- Difficulty tiers.
+- A defined round duration.
+- A generation method.
+- A deterministic answer validator.
+- Explanation mappings for incorrect choices.
+- Accessibility metadata.
+- An offline content requirement.
+- An MVP, version 1.1 or later release designation.
+
+Prefer parameterised, engine-verified question generation to uncontrolled generation by a language model.
+
+15. INTERACTIVE SIMULATION LAB
+
+Provide a simulation catalogue covering:
+
+- Unit-circle exploration.
+- Trigonometric function transformations.
+- Projectile motion.
+- Position, velocity and acceleration.
+- Newton's laws.
+- Friction and inclined planes.
+- Work and energy.
+- Circular motion.
+- Rotational motion.
+- Gravitation.
+- Fluid pressure and buoyancy.
+- Heat transfer.
+- Thermodynamic state changes.
+- Simple harmonic motion.
+- Wave interference.
+- Coordinate geometry.
+- Conic sections.
+- Function graphs and derivatives.
+
+Each simulation should expose meaningful controls, units, live measurements, graph views and reset controls.
+
+Display the governing equations and state the assumptions.
+
+Use deterministic numerical models appropriate to the topic. Explain where real-world effects have been omitted.
+
+Support slow motion, pause, step forward, comparison between runs and optional guided experiments.
+
+Never present an idealised simulation as a complete model of reality.
+
+16. MODERN UI/UX DESIGN SYSTEM
+
+Create a polished, restrained, premium interface.
+
+Design direction:
+
+- Scientific precision.
+- Clean typography.
+- Carefully controlled gradients.
+- High-quality mathematical typesetting.
+- Subtle depth and layering.
+- Clear spacing.
+- Accessible contrast.
+- Purposeful motion.
+- Minimal visual noise.
+
+Use dark and light themes. Consider an optional OLED-friendly dark theme.
+
+Use a consistent design-token system for colours, spacing, type scales, radii, elevation, animation and semantic status.
+
+Use semantic colours for success, error, warning and information. Never rely on colour alone to convey meaning.
+
+The calculator should use a highly legible display, reliable touch targets and a carefully organised keypad.
+
+The AI tutor should look like a study workspace, not a generic messaging clone.
+
+Games should use full-screen task-focused layouts. Simulations should prioritise the experiment and its measurements.
+
+Required UI states:
+
+- Loading.
+- Empty.
+- Success.
+- Recoverable error.
+- Offline.
+- Sync pending.
+- Unsupported operation.
+- Permission denied.
+- AI unavailable.
+- Content update available.
+- Content validation failed.
+
+Support small phones, large phones, tablets, split-screen layouts, keyboard navigation and different font scales.
+
+Respect reduced-motion preferences. Make haptics and sound optional.
+
+Avoid decorative animations that delay calculations or reduce readability.
+
+17. PREMIUM INTERACTION DETAILS
+
+Where useful, add:
+
+- A collapsible calculation workspace.
+- Swipeable but keyboard-accessible history.
+- Contextual formula suggestions.
+- Inline unit conversion.
+- Adjustable graph cursors.
+- Interactive derivation steps.
+- A side-by-side expression comparison.
+- A draggable graph viewport.
+- Split-screen formula and simulation views.
+- Persistent scratch work.
+- Quick topic search.
+- Command-style navigation.
+- Context-aware undo.
+- A reversible action history.
+- Smart clipboard parsing with explicit confirmation before evaluating ambiguous input.
+
+These features must remain discoverable and must not overload the default screen.
+
+18. TECHNICAL ARCHITECTURE
+
+For a native Android-first implementation, evaluate:
+
+- Kotlin.
+- Jetpack Compose.
+- Material 3 with a custom design system.
+- Coroutines and Flow.
+- Room for Android-specific persistence, or SQLDelight if shared multiplatform database logic is justified.
+- A suitable dependency-injection approach such as Hilt or Koin.
+- Gradle version catalogs.
+- Gradle convention plugins.
+- WorkManager for appropriate deferred background tasks.
+- Baseline Profiles and Macrobenchmark.
+- A modular domain and calculation-engine layer.
+- A shared Kotlin Multiplatform domain layer where practical.
+- Compose Multiplatform only where its platform support and feature needs justify it.
+- A versioned content-pack system.
+- Automated CI builds and tests.
+
+Verify current stable versions and compatibility before choosing dependencies. Do not invent version numbers.
+
+Keep core mathematical logic independent of the user interface.
+
+Suggested module boundaries:
+
+app
+core:domain
+core:calculation
+core:expression
+core:units
+core:storage
+core:designsystem
+core:accessibility
+core:content
+core:sync
+feature:calculator
+feature:equations
+feature:graphing
+feature:physics
+feature:ai-tutor
+feature:practice
+feature:progress
+feature:games
+feature:simulations
+feature:teacher
+feature:settings
+
+Each module must have documented responsibilities and interfaces. Do not create a module merely to make the project look modular.
+
+19. OFFLINE-FIRST DESIGN
+
+The calculator, installed formulas, standard solver rules, graphing, installed games and installed simulations must work offline.
+
+Use local storage for calculation history, preferences, downloaded content and progress.
+
+Cloud synchronisation must be optional.
+
+Implement:
+
+- Versioned local data.
+- Retryable sync.
+- Idempotent operations.
+- Conflict resolution.
+- Content checksums.
+- Safe database migrations.
+- Explicit sync status.
+- Data export.
+- Account deletion.
+- Offline error handling.
+
+Do not block local calculations because authentication or a backend service is unavailable.
+
+20. CONTENT DELIVERY AND UPDATES
+
+Represent lessons, questions, hints, game levels, formula definitions and simulation configurations as versioned data.
+
+Validate content against schemas before installation.
+
+Support downloadable content packs, checksums, compatibility metadata, rollback and minimum application-version rules.
+
+Where appropriate, investigate Play Feature Delivery and Play Asset Delivery. Verify their current policies, eligibility and limitations before implementation.
+
+Do not download arbitrary executable code or use a remote code mechanism to bypass platform review requirements.
+
+Data-driven content must be interpreted by already-installed application logic. Native code changes must use the applicable approved distribution process.
+
+Implement feature flags for safe releases, with sensible offline defaults.
+
+21. BACKEND AND DATA MODEL
+
+Keep the backend minimal.
+
+Possible entities:
+
+- User account.
+- User preferences.
+- Learning progress.
+- Topic mastery.
+- Revision item.
+- Assignment.
+- Class membership.
+- Content pack.
+- Content version.
+- Sync operation.
+- Optional AI request metadata.
+
+Use opaque identifiers, explicit access control and a documented data-retention policy.
+
+Do not store unnecessary personal information.
+
+Never expose credentials or API secrets in the Android application.
+
+Version APIs and schemas. Document compatibility and migration rules.
+
+22. AUTHENTICATION AND CHILD SAFETY
+
+Provide guest access.
+
+For optional accounts, implement email/password authentication, email verification, secure password reset, rate limiting and breach-password protections.
+
+Use an established identity system where appropriate rather than inventing password security.
+
+Store passwords only as appropriately salted, computationally expensive password hashes on the server. Never log passwords or reset tokens.
+
+Evaluate Google sign-in and passkeys as optional additions.
+
+Implement account export and deletion flows.
+
+Use privacy by default, minimal collection, short and justified retention, private progress and explicit consent where required.
+
+Have qualified legal counsel review applicable Indian data-protection requirements, GDPR children's-data rules where relevant, COPPA where applicable and distribution-platform policies.
+
+Do not claim legal compliance without an appropriate review.
+
+23. AI PRIVACY AND RELIABILITY
+
+Send the minimum information necessary to a cloud model.
+
+Do not send student names, email addresses, precise location or unnecessary account identifiers in tutoring prompts.
+
+Provide a clear AI settings screen and explain which features require the internet.
+
+Implement:
+
+- Structured inputs and outputs.
+- Input limits.
+- Output validation.
+- Request timeouts.
+- Rate limits.
+- Safe fallbacks.
+- Error reporting without sensitive content.
+- Model and prompt version tracking.
+- Evaluation datasets.
+- Hallucination and numerical-consistency tests.
+
+Use on-device AI only where measured benefits justify model size, latency, battery use and memory cost.
+
+A deterministic offline tutor must remain available for supported standard problems even when generative AI is unavailable.
+
+24. TEACHER AND CLASSROOM TOOLS
+
+Offer an optional free teacher mode with:
+
+- Class creation.
+- Assignment codes.
+- Curriculum-linked question selection.
+- Practice assignments.
+- Aggregate topic-level progress.
+- Student feedback.
+- Printable certificates.
+- Downloadable reports.
+
+Do not make students create accounts solely to use the calculator.
+
+Avoid exposing individual student records publicly. Apply explicit role-based permissions and retention rules.
+
+Design classroom workflows for unreliable internet access.
+
+25. ACCESSIBILITY AND LOCALISATION
+
+Support:
+
+- TalkBack.
+- Dynamic font sizing.
+- Keyboard navigation.
+- Switch access.
+- High contrast.
+- Colour-blind-safe indicators.
+- Left-handed layouts.
+- Reduced motion.
+- Optional haptics and sound.
+- Accessible mathematical expressions.
+- Screen-reader descriptions for graphs.
+- English at launch.
+- Architecture ready for Hindi and other regional languages.
+- Right-to-left layout support where required.
+
+Test accessibility on actual devices and with automated accessibility checks.
+
+Do not treat accessibility as a final cosmetic phase.
+
+26. PERFORMANCE AND LOW-END DEVICES
+
+Choose the minimum Android API level using the required libraries, supported-device needs, security posture and current distribution policies. Document the trade-off and verify the decision before release.
+
+Set measurable budgets for:
+
+- Cold startup.
+- Warm startup.
+- Calculator response time.
+- Expression parsing.
+- Graph rendering.
+- Memory usage.
+- Battery use.
+- Initial installation size.
+- Optional content-pack size.
+- Background network activity.
+
+Target smooth interaction on representative devices with 2–3 GB RAM, subject to actual profiling.
+
+Avoid unnecessary dependencies, oversized assets and expensive recompositions.
+
+Use Baseline Profiles, Macrobenchmark and profiling tools where appropriate.
+
+27. TESTING AND RELEASE QUALITY
+
+Build a layered test strategy:
+
+UNIT TESTS:
+
+- Parser.
+- Evaluator.
+- Symbolic rules.
+- Units.
+- Precision.
+- Equation solvers.
+- Physics formula validation.
+- Mastery logic.
+- Content schemas.
+
+PROPERTY TESTS:
+
+- Arithmetic invariants.
+- Unit conversions.
+- Algebraic equivalence for supported transformations.
+- Reversibility where mathematically valid.
+
+INTEGRATION TESTS:
+
+- Local storage.
+- Migrations.
+- Content installation.
+- Offline behaviour.
+- Synchronisation.
+- Authentication.
+- AI validation pipeline.
+
+UI TESTS:
+
+- Calculator entry.
+- Error states.
+- Navigation.
+- Font scaling.
+- TalkBack labels.
+- Tablet layouts.
+- Game pause and resume.
+
+SECURITY TESTS:
+
+- Authentication abuse.
+- Access control.
+- Secret leakage.
+- Sensitive logs.
+- Export and deletion.
+- Dependency vulnerabilities.
+
+DEVICE TESTS:
+
+- Low-memory devices.
+- Older supported Android versions.
+- Different screen sizes.
+- Offline and intermittent connections.
+
+Maintain a release-blocking defect list. Never describe a test as passed unless it has actually run and produced a successful result.
+
+28. SUCCESS METRICS
+
+Define hypotheses rather than invented benchmarks.
+
+Learning:
+
+- Pre-test and post-test performance.
+- Delayed retention.
+- Concept-level mastery.
+- Error recurrence.
+- Transfer to unfamiliar questions.
+
+Engagement quality:
+
+- Completed learning sessions.
+- Voluntary return.
+- Revision completion.
+- Meaningful game progression.
+- Continued use after 30 days.
+
+Product health:
+
+- Crash-free sessions.
+- Startup latency.
+- Calculation correctness.
+- Offline success rate.
+- Accessibility findings.
+- Installation size.
+- Battery consumption.
+
+Measure learning improvement separately from time spent in the application. Do not optimise for screen time at the expense of learning.
+
+29. IMPLEMENTATION ROADMAP
+
+PHASE 1 — FOUNDATION
+Create the project, design system, navigation, module boundaries, local persistence and automated build.
+
+PHASE 2 — CALCULATOR MVP
+Implement arithmetic, expression editing, scientific functions, history, units and verified standard solutions.
+
+PHASE 3 — LEARNING CORE
+Implement topic maps, formula library, daily practice, mistake review and local progress.
+
+PHASE 4 — GAMES
+Ship the first five to ten high-quality mini-games, then expand toward the planned 110-game catalogue.
+
+PHASE 5 — SIMULATIONS
+Implement reusable simulation infrastructure and selected mathematics and physics experiments.
+
+PHASE 6 — AI
+Add the verified AI tutoring pipeline, optional cloud integration and privacy controls.
+
+PHASE 7 — CLASSROOM AND CONTENT DELIVERY
+Add teacher tools, validated content packs, synchronisation and staged releases.
+
+PHASE 8 — HARDENING
+Complete security, accessibility, performance, curriculum, device and regression testing.
+
+PHASE 9 — RELEASE
+Prepare documentation, privacy disclosures, support processes, release notes and store materials.
+
+For each phase, produce:
+
+- Deliverables.
+- Dependencies.
+- Acceptance criteria.
+- Test evidence.
+- Known limitations.
+- Risks.
+- Estimated effort.
+- Explicit exit criteria.
+
+30. REQUIRED FINAL DELIVERABLES
+
+Produce the following artifacts:
+
+1. Product requirements document.
+2. User personas and jobs-to-be-done.
+3. Complete feature matrix.
+4. Curriculum-to-feature mapping.
+5. Information architecture.
+6. Screen inventory.
+7. Design-token specification.
+8. Navigation and interaction flows.
+9. Architecture diagram.
+10. Module dependency diagram.
+11. Calculator engine specification.
+12. AI tutor architecture and validation rules.
+13. Core game design documents.
+14. Mini-game catalogue.
+15. Simulation catalogue.
+16. Content schemas and example packs.
+17. Database schema.
+18. API contracts where required.
+19. Security and privacy threat model.
+20. Accessibility checklist.
+21. Test plan and reference datasets.
+22. Performance budgets.
+23. Development roadmap.
+24. Release checklist.
+25. Developer setup documentation.
+26. Known limitations and unresolved decisions.
+
+31. ACCEPTANCE CRITERIA
+
+The application is not complete merely because its screens look attractive.
+
+The MVP must demonstrate:
+
+- A working offline calculator.
+- Correct handling of supported expressions.
+- Verified step-by-step solutions for the implemented problem types.
+- Clear errors for unsupported or undefined operations.
+- Persistent local history.
+- At least one fully playable educational game.
+- At least one interactive simulation.
+- A functioning revision workflow.
+- Accessible core navigation.
+- Automated tests for critical mathematical logic.
+- No requirement to sign in for basic use.
+- No advertisements or paid student unlocks.
+- Clear separation between implemented, simulated, planned and unavailable features.
+
+Do not claim that the entire 110-game catalogue, every calculus operation, every AI capability or every platform is finished until each has been implemented and tested.
+
+32. FIRST RESPONSE FROM THE DEVELOPMENT AGENT
+
+Before implementation, provide:
+
+A. A concise architecture recommendation.
+
+B. A table separating the MVP, version 1.1 and later releases.
+
+C. A proposed repository structure.
+
+D. A dependency and technology verification checklist.
+
+E. A list of major technical risks.
+
+F. The first working vertical slice to implement.
+
+G. Exact commands to build and test the project in the available environment.
+
+H. A list of decisions that genuinely require user input.
+
+Do not ask the user to decide routine engineering details unnecessarily. Choose sensible defaults, document them and continue.
+
+After presenting this plan, begin implementation if the environment supports it. Verify the first vertical slice before expanding the product.
+
+FINAL PRINCIPLE:
+
+Build CalcMaster as a trustworthy learning instrument, not a collection of disconnected features. Every calculation must be reliable, every game must teach something measurable, every AI explanation must be appropriately validated, every interface must be usable, and every student must retain access to the free core product.

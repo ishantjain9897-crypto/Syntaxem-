@@ -1,0 +1,460 @@
+# CalcMaster 2026 – Master Build Prompt
+
+---
+
+## 1. ROLE AND OPERATING MODE
+
+You are a combined team of five senior specialists working as one:
+
+1. **Principal Android Architect** with deep experience in Kotlin, Jetpack Compose, Kotlin Multiplatform (KMP), modular app design and dynamic feature delivery.
+2. **EdTech Product Manager** who has shipped learning apps for school students aged 15 to 17 and understands curriculum alignment, retention, and motivation.
+3. **Mathematics and Physics Subject Expert** fluent in the Class 11 syllabus (CBSE/NCERT, with notes for state boards and international equivalents).
+4. **Game Designer** specialising in educational game loops, difficulty curves, progression, and reward systems without dark patterns.
+5. **UI/UX Designer** focused on clean, restrained, premium interfaces that stay readable for long study sessions.
+
+Work through every task in this order: **understand → plan → research → create → verify → improve → deliver.** Do not stop at explanation when a finished artefact (a table, a schema, a code skeleton, a diagram description, a checklist) can be produced. Where you cannot do something (for example, you cannot publish to Google Play or send emails on my behalf), say so plainly and produce a ready-to-use draft instead. Never claim you performed an action you did not perform.
+
+**Honesty rules (strict):**
+
+- Never invent statistics, citations, market figures, user numbers, library version numbers, or contact details. If you are unsure whether something exists or is current, label it **"verify before use"**.
+- Clearly separate **facts**, **recommendations**, and **assumptions**. Mark assumptions with the tag `[ASSUMPTION]`.
+- If two approaches are close, give a recommendation and a one-line reason, not a vague survey.
+- Where I am likely to be wrong or a requirement conflicts with another, tell me directly and propose a fix.
+
+---
+
+## 2. PROJECT SUMMARY
+
+**Project title:** CalcMaster 2026: The Ultimate All-in-One Learning & Calculation Suite
+
+**Platform:** Android first (phones and tablets), with an architecture that allows iOS and desktop later.
+
+**Launch window:** Late 2026.
+
+**Target user:** Students in **Class 11** (roughly ages 15 to 17), plus their teachers and parents as secondary users. Primary subjects: **Mathematics, Physics, and Trigonometry.**
+
+**One-sentence vision:** A free, ad-free app where a student can calculate anything, understand every step, and then *play* their way to mastery of Class 11 maths and physics.
+
+**Business constraints:**
+
+- Completely free to use. No paywalls on any core feature.
+- No ads of any kind, no interstitials, no forced videos, no "watch to unlock", no timers that block learning, no loot boxes.
+- The phrase "no work" in my brief means: **no friction and no forced tasks.** The student should never be made to do something unrelated to learning in order to continue.
+- Sustainable funding must still be considered. Propose ethical options (grants, school or institutional partnerships, optional donations, open-source sponsorship, a separate paid teacher dashboard) and clearly state that these must never gate student features.
+
+---
+
+## 3. WHAT I WANT YOU TO PRODUCE
+
+Produce a single, well-structured **Master Blueprint** with the numbered sections below. Use headings, tables, and diagrams described in text or Mermaid syntax. Keep each section practical enough that a small team (2 to 6 people) could start building from it on Monday.
+
+1. Product vision, personas, and success metrics
+2. Detailed feature specification (calculator, games, simulations, learning tools)
+3. Curriculum map (Class 11 topics to game mechanics)
+4. The 5 core games (full design documents)
+5. The 100+ mini-game library (full catalogue)
+6. Simulation and demonstration lab
+7. Technical architecture and 2026 tech stack
+8. Calculation engine design (local vs cloud)
+9. AI features and personalisation
+10. Authentication, security, privacy, and child-safety compliance
+11. UI/UX concept and design system
+12. Data model and backend design
+13. Modularity, updates, and content delivery without reinstalls
+14. Testing, quality, accessibility, and performance budgets
+15. Development roadmap with phases, milestones, team, and effort estimates
+16. Launch, growth, community, and sustainability plan
+17. Risk register and mitigation
+18. Appendices: glossary, sample JSON schemas, sample code skeletons, checklists
+
+Target length of the final blueprint: **as long as needed to be complete, but prioritise density over padding.** No filler, no repeated sentences.
+
+---
+
+## 4. DETAILED REQUIREMENTS
+
+### 4.1 Advanced Calculator Engine
+
+The calculator is the heart of the app. It must feel as fast and trustworthy as a physical scientific calculator, and as helpful as a tutor.
+
+**Modes to include:**
+
+- **Basic:** arithmetic, percentages, memory functions, history tape.
+- **Scientific:** powers, roots, logarithms (base 10, natural, arbitrary base), factorials, permutations and combinations, trigonometric and inverse trigonometric functions, hyperbolic functions, degree/radian/gradian switching, scientific notation, constants (π, e, g, c, h, G, and others).
+- **Expression editor:** natural display input (fractions, exponents and roots rendered as written in a textbook), cursor navigation, editing within expressions, and undo/redo.
+- **Equation solver:** linear, quadratic, cubic, simultaneous equations (2 to 4 unknowns), inequalities, and numeric root-finding.
+- **Calculus basics (preview level for Class 11):** limits, derivatives of standard functions, simple integrals, and graph-based interpretation.
+- **Matrices and vectors:** addition, multiplication, determinant, inverse, dot and cross products, vector resolution.
+- **Statistics:** mean, median, mode, variance, standard deviation, regression.
+- **Complex numbers:** arithmetic, polar form, Argand diagram.
+- **Sequences and series:** AP, GP, sum of n terms, binomial expansion.
+- **Physics numericals mode:** a structured solver where the student selects a topic (kinematics, laws of motion, work-energy-power, rotational motion, gravitation, properties of matter, thermodynamics, oscillations, waves) and enters known quantities. The engine identifies the right formula, solves for the unknown, and shows steps.
+- **Engineering-grade formulas:** unit conversion across SI and non-SI systems, significant figures handling, error and uncertainty propagation, base conversions (binary, octal, hex), and a formula library.
+- **Graphing:** plot one or more functions, zoom and pan, find intercepts, maxima, minima, and intersections, trace values.
+
+**Step-by-step solutions (non-negotiable):**
+
+- Every solvable math or physics problem must be able to show **how** the answer was reached: the rule or formula used, each substitution, each simplification, units at every stage, and a final boxed answer.
+- Provide three explanation levels the student can switch between: **Hint only**, **Outline**, and **Full worked solution**.
+- Show **why** a method was chosen, not only what was done.
+- Offer a **common mistakes** note for each problem type (for example, forgetting to convert degrees to radians, sign errors in projectile motion, unit mismatch).
+- Let the student **check their own working**: they enter their steps or final answer and the engine tells them where it first diverges.
+- Never present a step-by-step result that was not produced or verified by the deterministic engine. If an AI model writes an explanation, the numbers inside it must come from the engine and be cross-checked.
+
+**Accuracy requirements:**
+
+- Use arbitrary-precision or high-precision arithmetic where floating point errors would be visible to the student (for example, 0.1 + 0.2).
+- Display exact forms (fractions, surds, π multiples) alongside decimals.
+- Define rounding behaviour clearly and let the student choose significant figures or decimal places.
+- Provide a clear, friendly error for domain errors (division by zero, log of a negative number) with a short explanation of *why* it is undefined.
+- Provide a test suite plan with at least several hundred reference cases per mode, cross-checked against an independent engine.
+
+**Offline-first:** the entire calculator, step-by-step engine for standard problem types, graphing, and unit library must work with **no internet connection**.
+
+### 4.2 Gamified Learning Module (Class 11 Focus)
+
+Gamification must serve learning. Every game must map to a named syllabus objective, give instant feedback with an explanation, and adapt difficulty to the student.
+
+**Design principles:**
+
+- **Learning first, fun second, and fun must carry learning.** A game that can be won without understanding the concept is a failed design.
+- **Short sessions.** Each mini-game round should take 1 to 5 minutes. Core games can run longer but must support save and resume.
+- **Mastery, not grind.** Progress is gated by demonstrated understanding, not by time spent.
+- **Instant, kind feedback.** Wrong answers trigger a short explanation and an invitation to retry, never shaming.
+- **No dark patterns.** No streak-loss anxiety, no artificial scarcity, no pay-to-skip, no manipulative notifications. Streaks, if offered, must have a built-in "rest day" and a gentle recovery rule.
+- **Inclusive competition.** Offer solo, co-operative, and optional friendly competition modes. Leaderboards must be opt-in and class- or friends-scoped by default.
+- **Rewards that matter:** badges tied to concepts mastered, cosmetic customisation, unlockable simulations, and printable certificates. No currency that can be purchased.
+
+**Required content:**
+
+- **5 distinct core game versions** (full design documents requested in Section 6 below).
+- **100+ mini-games** covering every major Class 11 topic in Mathematics, Physics, and Trigonometry (catalogue requested in Section 7 below).
+- **Interactive simulations and demonstrations** (requested in Section 8 below).
+- A **daily practice** feature that generates a short personalised session from the student's weak areas.
+- A **revision mode** that turns past mistakes into spaced-repetition challenges.
+- A **teacher/classroom mode** (optional, free) with assignment codes, class progress dashboards, and no student data sold or shared.
+
+### 4.3 User Authentication and Accessibility
+
+- **Email and password sign-up and login**, with secure password handling (Argon2id or bcrypt on the server side, never stored or logged in plain text), email verification, password reset by one-time link, rate limiting, and breach-password checking.
+- **Guest mode:** the student can use the calculator and play without an account. Accounts exist only for sync and progress backup.
+- **Optional sign-in methods** (Google, passkeys) may be proposed as additions, but email and password must be fully supported.
+- **Age-appropriate design:** many Class 11 students are minors. Describe a privacy-by-default approach: data minimisation, parental consent flows where local law requires it (mention frameworks such as India's DPDP Act, GDPR-K, and COPPA as areas to verify with a lawyer), and no behavioural advertising profile of any kind.
+- **Account deletion** and **data export** inside the app, one tap each.
+- **Accessibility:** screen reader support (TalkBack), dynamic font sizes, high-contrast and colour-blind-safe themes, haptics and sound toggles, one-handed use, left-handed layout, reduced-motion mode, and keyboard or switch access for tablets.
+- **Languages:** English at launch, with an architecture ready for Hindi and other Indian regional languages and for right-to-left scripts. Math rendering must work in all supported languages.
+- **Low-end device support:** the app must run smoothly on devices with 2 to 3 GB RAM and older Android versions. State the minimum supported Android version and justify it.
+- **Low-data support:** small initial download, optional content packs, and clear data-usage controls.
+
+### 4.4 2026 Technology and Future-Proofing
+
+Propose and justify a modern stack. I expect you to consider at least: **Kotlin**, **Jetpack Compose** (and Compose Multiplatform), **Kotlin Multiplatform** for shared logic, **Coroutines and Flow**, **Room or SQLDelight** for local storage, **WorkManager** for background sync, **Hilt or Koin** for dependency injection, **Gradle version catalogs and convention plugins**, **Play Feature Delivery / Play Asset Delivery** for modular content, **Baseline Profiles** and **Macrobenchmark** for performance, and **on-device AI** (for example, small quantised models running locally) combined with optional cloud AI.
+
+For every technology you recommend, give: what it is used for, why it is chosen over the main alternative, and any risk. Flag anything whose 2026 status you cannot confirm as **verify before use**.
+
+**Future-proofing requirements:**
+
+- A **modular architecture** where each game, simulation pack, and calculator mode is an independent module with a clear interface.
+- **Content-as-data:** question banks, lesson text, hints, and game levels stored as versioned, validated JSON or similar, so teachers and contributors can add content without changing app code.
+- **Remote-delivered content packs** so new mini-games and topics can be added without requiring a full app reinstall, while respecting Google Play policy on executable code (explain exactly what is allowed: data-driven content and Play-delivered modules, versus downloading arbitrary executable code, which is not allowed).
+- **Feature flags and staged rollouts** for safe experiments.
+- **Backwards-compatible data migrations** for local and cloud data.
+- A plan for **API versioning** and long-term maintenance by a small team.
+
+---
+
+## 5. PRODUCT STRATEGY SECTION REQUIREMENTS (Blueprint Section 1)
+
+Deliver the following:
+
+- **Three detailed personas:** (a) a motivated student preparing for competitive exams, (b) an average student who finds physics intimidating, (c) a teacher who wants classroom-ready tools. Include goals, frustrations, devices, data limits, and how CalcMaster helps each.
+- **Jobs-to-be-done** statements for each persona.
+- **Competitive landscape:** describe categories of existing apps (scientific calculators, step-by-step math solvers, physics simulation tools, educational game apps). Do **not** invent specific market numbers. Where you name real products, say only what you are confident is true and mark anything else **verify before use**.
+- **Differentiators:** the unique combination of calculator plus step solver plus games plus simulations, offline-first, free, ad-free, and curriculum-aligned.
+- **Success metrics** in three groups: learning outcomes (for example, concept-mastery improvement on pre/post quizzes), engagement quality (sessions per week, completed levels, return after 30 days), and product health (crash-free rate, startup time, accessibility audit results). Propose target ranges as **hypotheses**, not facts.
+- **Ethical framework:** a short charter the team will follow (no manipulative design, no sale of data, transparent AI use, honest marketing).
+
+---
+
+## 6. THE 5 CORE GAMES (Blueprint Section 4)
+
+Design **five distinct core games**. Each must feel different in genre, so a student can pick the style they enjoy. For **each** game, provide a full design document with these headings:
+
+- **Name and tagline**
+- **Genre and core loop** (what the player does every 30 seconds, every 5 minutes, every session)
+- **Syllabus coverage** (exact Class 11 chapters and sub-topics)
+- **Learning objectives** (written as measurable statements, for example, "The student can convert between degrees and radians and place angles on the unit circle")
+- **Mechanics in detail** (controls, rules, scoring, failure states, how calculator tools can be used inside the game)
+- **Level progression** (at least 5 worlds or stages, with the concept introduced in each and a sample level)
+- **Difficulty adaptation** (how the game measures ability and adjusts; describe the algorithm in plain language, such as an Elo-style or Bayesian knowledge tracing approach)
+- **Feedback and hints system**
+- **Story, theme, and art direction** (restrained, premium, readable; avoid childish or cluttered visuals)
+- **Sound and haptics**
+- **Multiplayer or co-op options** (if any)
+- **Content data format** (a sample JSON for one level)
+- **Technical notes** (rendering approach, performance, offline behaviour)
+- **Anti-cheat and fairness notes** (if competitive elements exist)
+- **Success metrics for this game**
+
+**Suggested concept directions** (you may improve or replace these, but keep five clearly different genres):
+
+1. **Unit Circle Quest** (trigonometry adventure / platformer): the player moves along a unit circle, collecting angle, sine, cosine and tangent values; levels cover radians, quadrants, identities, graphs of trig functions, and trig equations.
+2. **Projectile Lab: Mission Control** (physics puzzle / strategy): the player sets launch angle and speed to hit targets, then learns kinematics equations, vectors, relative motion, and air-resistance-free ideal assumptions versus reality.
+3. **Algebra Arena** (turn-based card or duel game): cards represent operations and identities; the player builds expressions and solves equations to defeat opponents. Covers sets, relations, functions, quadratics, complex numbers, sequences, binomial theorem, permutations and combinations.
+4. **Force & Motion Tycoon** (simulation / builder): the player designs ramps, pulleys, bridges, and machines, and must satisfy Newton's laws, work-energy, friction, and equilibrium conditions to make them function.
+5. **Graph Escape** (puzzle / escape room): rooms are locked by graph and coordinate geometry puzzles: straight lines, circles, parabolas, ellipses, hyperbolas, limits, and derivatives intuition.
+
+If you propose different concepts, justify the change and confirm coverage of **Mathematics, Physics, and Trigonometry** across the five games as a coverage matrix (rows: chapters; columns: games; cells: depth level 0 to 3).
+
+---
+
+## 7. THE 100+ MINI-GAME LIBRARY (Blueprint Section 5)
+
+Provide a **catalogue of at least 100 mini-games** (aim for 110 to leave room for cuts). Present it as a table with these columns:
+
+| # | Name | Subject | Chapter / Topic | Mechanic type | Learning objective | Difficulty tiers | Est. round time | Needs simulation? |
+
+**Distribution targets:**
+
+- **Mathematics: about 45 games** across: sets and relations, functions, complex numbers and quadratic equations, linear inequalities, permutations and combinations, binomial theorem, sequences and series, straight lines, conic sections, 3D geometry intro, limits and derivatives intro, statistics, probability, mathematical reasoning.
+- **Trigonometry: about 25 games** across: angle measurement, unit circle, trig ratios, identities, graphs and transformations, trig equations, inverse functions (intro), heights-and-distances applications.
+- **Physics: about 40 games** across: units and measurement, significant figures and errors, kinematics (1D and 2D), laws of motion, work-energy-power, systems of particles and rotational motion, gravitation, mechanical properties of solids and fluids, thermal properties, thermodynamics, kinetic theory, oscillations, waves.
+
+**Mechanic variety (use at least 12 different types):** speed-quiz, drag-and-drop, matching, sorting, estimation, graph-reading, graph-drawing, formula-assembly, error-spotting, "fix the solution", number-line placement, rhythm-based (for waves and oscillations), memory pairs, falling-blocks style, tower-defence style, word-problem builder, sandbox experiment, logic puzzle, timeline ordering, and two-player challenge.
+
+**For each mini-game group, also specify:**
+
+- How questions are generated: **hand-authored**, **templated with randomised parameters**, or **procedurally generated and engine-verified**. Prefer templated and engine-verified generation so that answers are always correct.
+- How a **content author** adds a new mini-game (the minimum JSON or YAML file needed, the validation rules, and the preview tool).
+- How **explanations** are attached to each wrong answer.
+- Which mini-games ship in the **MVP** (target: 20 to 25), which in **version 1.1**, and which in later content packs.
+
+Also provide **10 fully written example mini-games** (rules, one sample question set of five items with answers and explanations, scoring, and difficulty tiers). All sample questions must be mathematically and physically correct; double-check every answer before presenting it. If you cannot verify a value, do not include it.
+
+---
+
+## 8. SIMULATIONS AND DEMONSTRATIONS LAB (Blueprint Section 6)
+
+Design an interactive **Simulation Lab** of at least **30 simulations**, each with: concept explained, controls (sliders, drag handles, toggles), what the student should observe, a guided "predict, observe, explain" activity, a short check quiz, and a link to the related calculator mode and mini-games.
+
+**Must include at least:**
+
+- **Trigonometry:** animated unit circle with sine and cosine wave tracing; phase shift, amplitude and period explorer; sum of sinusoids; identity visualiser; triangle solver with law of sines and cosines.
+- **Kinematics:** projectile motion with adjustable angle, speed, and height; velocity-time and position-time graph builder; relative velocity (river-boat problem); free fall.
+- **Dynamics:** Newton's laws cart and ramp; friction explorer; pulley systems; circular motion and banking of roads; Atwood machine.
+- **Energy and momentum:** work-energy on slopes; elastic and inelastic collisions; centre of mass.
+- **Rotation:** torque and levers; moment of inertia comparisons; rolling motion.
+- **Gravitation:** orbits, escape velocity, Kepler's laws.
+- **Matter and thermal:** stress-strain curve; fluid pressure and buoyancy; Bernoulli demonstration; heat conduction; gas laws (PV diagrams); Carnot cycle.
+- **Oscillations and waves:** simple harmonic motion with spring and pendulum; damping and resonance; wave superposition; standing waves; Doppler effect.
+- **Mathematics visualisers:** conic sections slicing a cone; transformation of graphs; sequences convergence; limit visualiser (epsilon-delta intro); derivative as slope; Pascal's triangle and binomial coefficients; probability experiments with simulated dice and coins.
+
+**Technical requirements for the simulations:**
+
+- 60 fps target on mid-range devices and a defined graceful-degradation mode (30 fps and simplified rendering) on low-end devices.
+- Deterministic physics where results must match the textbook formula, with an optional "realistic" toggle that adds effects such as air resistance, clearly labelled as beyond syllabus.
+- Recommend the rendering approach (Compose Canvas, a lightweight 2D engine, OpenGL/Vulkan for heavier cases) and justify it.
+- Every simulation must expose its **parameters and results as data** so the calculator can import them (for example, "send this projectile's values to the physics solver").
+- Provide a **teacher demonstration mode** that works on a projected screen: large fonts, high contrast, step-through controls, and exportable screenshots.
+
+---
+
+## 9. TECHNICAL ARCHITECTURE AND CALCULATION ENGINE (Blueprint Sections 7 and 8)
+
+**Architecture deliverables:**
+
+- A **layered architecture diagram** (Mermaid or clear text) showing: presentation layer (Compose UI), domain layer (use cases), data layer (repositories, local database, remote API), the shared KMP core (calculation engine, content parser, adaptive-learning logic), and the feature modules (calculator modes, each core game, mini-game packs, simulation packs).
+- A **module map** with names, responsibilities, and allowed dependencies. State the rule that feature modules never depend on each other directly; they communicate through defined interfaces and a shared event bus.
+- A recommended **architecture pattern** (for example, MVI or unidirectional data flow with a clean-architecture domain layer), with a short justification and a sample screen skeleton.
+- A **navigation design** that supports deep links (for example, from a calculator result into the matching game or simulation).
+- A **state-management strategy** for long-running games: save, resume, and recover after process death.
+- **Build and release tooling:** CI pipeline, code-quality gates (lint, static analysis), automated screenshot tests, and a release train with staged rollout.
+
+**Calculation engine design:**
+
+- **Where it runs:** the entire engine runs **locally on the device** inside the shared KMP module, so it is deterministic, fast, private, and offline. Explain exactly which parts, if any, benefit from the cloud (large content search, AI explanations, analytics that are opt-in) and why the core numerical work must never depend on a server.
+- **Parsing and evaluation:** describe the pipeline: tokenizer, parser to an abstract syntax tree, symbolic simplifier, numeric evaluator, and renderer for textbook-style display. Mention how operator precedence, implicit multiplication, and unit-aware arithmetic are handled.
+- **Symbolic versus numeric:** recommend an approach for exact results (rational numbers, surds, π multiples) and for step generation (a rule-based rewriting system where each rewrite is a recorded step).
+- **Step generation:** describe how every transformation rule has an id, a human-readable explanation, a prerequisite concept tag, and a link to a related lesson or game. Provide a sample trace for solving a quadratic and for a two-stage projectile problem.
+- **Physics solver design:** formulas stored as data (variables, units, constraints, valid ranges), with a solver that selects a path from the knowns to the unknown, checks dimensional consistency, and warns when assumptions (such as negligible air resistance) are violated.
+- **Units system:** dimension-checked arithmetic so that adding metres to seconds is blocked with a helpful message.
+- **Performance budgets:** target response times for typical expressions, for graph redraws, and for step generation on a low-end phone. State the budgets as hypotheses to be measured.
+- **Testing the engine:** property-based tests, golden-file tests for step traces, cross-validation against a second independent engine, and a public "known issues" log.
+- **Library choices:** compare building a custom engine against embedding an existing open-source computer algebra library. Give a recommendation, the licence implications, and a fallback plan. Mark any library version or licence detail you are not certain about as **verify before use**.
+
+**Backend (kept as small as possible):**
+
+- What truly needs a server: account storage, progress sync, content pack delivery, teacher classroom features, and optional AI services.
+- Recommend a lean, low-cost backend approach (managed backend services or a small self-hosted stack), with a justification focused on keeping the app free for students.
+- Provide a **REST or gRPC endpoint list** for the MVP, an **entity-relationship outline** (users, profiles, progress, attempts, mastery states, content versions, classrooms, assignments), and a **sync strategy** (offline-first, conflict resolution rules, idempotent uploads).
+- Estimate the **cost drivers** qualitatively (storage, bandwidth, compute, email delivery) and suggest ways to keep them low. Do not invent price figures.
+
+---
+
+## 10. AI FEATURES AND PERSONALISATION (Blueprint Section 9)
+
+AI must help learning, not replace thinking.
+
+- **Adaptive difficulty:** describe a knowledge-tracing approach that estimates mastery per concept and chooses the next question to sit in the student's zone of proximal development.
+- **AI tutor (optional):** a conversational helper that asks guiding questions before giving answers, refers to the student's own steps, and always shows verified engine results for numbers. Define guardrails: no unsafe content, no homework-cheating mode that bypasses learning goals, no personal data in prompts, and a clear label that it is an AI.
+- **On-device versus cloud AI:** propose which features can run with a small on-device model (hints, concept explanations, question rephrasing) and which would need the cloud. Explain privacy, latency, battery, and storage trade-offs. If you mention specific model names or sizes, mark them **verify before use**.
+- **Photo-to-problem (optional, later phase):** scan a printed textbook question and convert it into an editable expression. Discuss accuracy limits and a mandatory human confirmation step before solving.
+- **Personalised study plans:** weekly plans generated from weak topics and exam dates, with a clear, editable explanation of why each item was chosen.
+- **Explainability:** every recommendation shows its reason in plain words.
+- **Evaluation plan:** how to measure whether AI features actually improve learning (A/B tests with ethical safeguards, pre/post tests), and how to detect and fix wrong or misleading explanations.
+- **Responsible AI policy:** bias checks across languages and backgrounds, data retention limits, and an easy way to switch all AI features off.
+
+---
+
+## 11. AUTHENTICATION, SECURITY, PRIVACY, AND SAFETY (Blueprint Section 10)
+
+Deliver a security and privacy design including:
+
+- **Threat model** (STRIDE or similar) for accounts, sync, content delivery, and classrooms.
+- **Authentication flow diagrams** for sign-up, email verification, login, password reset, token refresh, and logout on all devices. Use short-lived access tokens, rotating refresh tokens stored in Android Keystore-backed encrypted storage, and secure session revocation.
+- **Password policy** that follows current guidance (length over complexity, breached-password checks, no forced periodic changes).
+- **Abuse protection:** rate limits, bot protection that does not harm accessibility, and account-recovery safeguards.
+- **Data protection:** encryption in transit and at rest, minimal personal data (email and display name only), pseudonymous learning records, and separation of identity data from learning data.
+- **Child-safety and privacy compliance checklist** covering Google Play family and education policies and the main data-protection laws relevant to my likely users. State clearly that this is a checklist to review with a qualified lawyer, not legal advice.
+- **Safe community features:** if any social features exist (friends, class leaderboards), provide moderation, reporting, no free-text chat between minors by default, and pre-set safe phrases.
+- **Secure content pipeline:** signed content packs, integrity checks, and rollback.
+- **Dependency and supply-chain security:** pinned dependencies, vulnerability scanning, and reproducible builds.
+- **Transparency:** a plain-language privacy page written for a 15-year-old, and a visible statement that the app has no ads and does not sell data.
+
+---
+
+## 12. UI/UX CONCEPT AND DESIGN SYSTEM (Blueprint Section 11)
+
+The central design challenge: **blend a serious calculator with playful learning without making either feel compromised.**
+
+**Design direction:** restrained, premium, and calm. Prefer generous spacing, a limited colour palette, one carefully chosen typeface pair, subtle motion with purpose, and crisp iconography. Avoid cluttered, childish, neon, or heavily decorated styles. Visual hierarchy must make the next action obvious.
+
+**Deliver:**
+
+- **Information architecture:** a sitemap and primary navigation (suggested tabs: Calculate, Learn, Play, Lab, Me). Justify the structure and show how a student moves between a calculation and a related game in two taps or fewer.
+- **Key screen descriptions** (wireframe-level, described in text) for: home, calculator (basic and scientific), step-by-step solution view, graphing, physics solver, game hub, one core game level, mini-game round, simulation lab, progress and badges, teacher dashboard, settings and accessibility.
+- **The calculator-meets-games bridge:** concrete patterns, such as "Try it as a game" suggestions after a solved problem, a mini-game strip under the calculator history, in-game calculator drawers that respect each game's rules, and "explain this step" shortcuts.
+- **Design system:** colour tokens for light, dark, and high-contrast themes; type scale; spacing and grid; elevation and motion principles; component inventory (buttons, keypad, cards, sliders, charts, dialogs); and rules for math typography.
+- **Keypad design:** large, accurate touch targets, adaptive layouts for phones, foldables, and tablets, haptic feedback, and error-proof input for common scientific symbols.
+- **Onboarding:** a 60-second flow that asks only what is needed (class, board, goals), starts with a quick win, and makes sign-up optional.
+- **Micro-interactions and feedback:** how correct, incorrect, and partially correct answers look, sound, and feel, with respect for reduced-motion and sound-off settings.
+- **Empty, loading, error, and offline states** for every major screen.
+- **Usability testing plan:** how to test with real Class 11 students and teachers, what to measure, and how to turn findings into changes.
+- **Visual checklist** the team will use before shipping any screen: hierarchy, engagement, accuracy, readability, and taste.
+
+---
+
+## 13. MODULARITY AND UPDATES WITHOUT REINSTALLS (Blueprint Section 13)
+
+Explain, in implementable detail:
+
+- **Three update channels:** (1) normal app updates through Google Play, (2) **Play Feature Delivery and Play Asset Delivery** for on-demand modules and large assets, and (3) **data-driven content packs** downloaded by the app itself (questions, levels, text, images, audio, simulation parameter files).
+- **Content pack format:** a manifest with id, version, minimum app version, dependencies, checksum, signature, size, and language; plus a folder structure and a validation schema.
+- **What a pack can and cannot do:** packs describe content and configuration for existing engines (for example, a new mini-game defined by a template and parameters). They must not contain arbitrary executable code. Cite the relevant platform policy as something to verify before release.
+- **Version negotiation and compatibility:** how the app decides whether a pack is installable, how old packs are migrated, and how to roll back a bad pack.
+- **Storage management:** a screen where the student sees installed packs and sizes, and can remove or re-download them.
+- **Background updates:** when and how packs update (on Wi-Fi, while charging, user-controlled).
+- **Authoring workflow:** how a teacher or contributor creates a pack with a template, validator, and preview app; review and approval steps; and a changelog.
+- **Future integrations:** how new services (for example, a new exam board syllabus, a learning management system integration, wearable support) can be added through defined extension points.
+- **Open-source and community strategy:** what to open-source, licence suggestions, contribution guidelines, and how to protect quality.
+
+---
+
+## 14. TESTING, QUALITY, ACCESSIBILITY, AND PERFORMANCE (Blueprint Section 14)
+
+Provide a quality plan including:
+
+- **Test pyramid:** unit tests for the engine and domain logic, integration tests for data and sync, UI tests for key flows, and end-to-end tests for sign-up, calculation, game play, and content-pack install.
+- **Content quality assurance:** every question and explanation is verified by the engine and reviewed by a subject teacher before release. Define a review checklist and an error-reporting button inside the app ("Report a wrong answer").
+- **Device matrix:** a list of device classes (low-end, mid-range, flagship, foldable, tablet) and Android versions to test, with justification.
+- **Performance budgets** (as hypotheses to measure): cold start time, frame-time targets, memory ceiling, APK/AAB base size, battery impact per 30-minute session, and data usage per week.
+- **Accessibility audit plan:** automated checks plus manual TalkBack testing, colour-contrast verification, and testing with students who have visual, motor, or learning differences.
+- **Crash and quality monitoring:** privacy-respecting crash reporting, with a crash-free-sessions goal and an on-call rotation for launch week.
+- **Beta programme:** closed testing with a few classrooms, structured feedback, and clear exit criteria for each stage.
+- **Definition of done** for a feature, a game, a simulation, and a content pack.
+
+---
+
+## 15. DEVELOPMENT ROADMAP (Blueprint Section 15)
+
+Create a phased roadmap working **backwards from a late-2026 launch**. Because the current date may already be close to that window, include two scenarios: (A) a **lean MVP launch** on the original timeline, and (B) a **fuller launch** if the date slips. Be explicit about which scope is cut in scenario A.
+
+**For each phase provide:** goals, deliverables, team roles needed, dependencies, exit criteria, risks, and a rough effort estimate expressed in person-weeks as a **range with stated assumptions** (not a promise).
+
+**Suggested phases (adjust as needed):**
+
+1. **Phase 0, Discovery and validation (2 to 4 weeks):** interviews with students and teachers, syllabus mapping, technical spikes (engine library choice, simulation rendering, pack delivery), and a signed-off MVP scope.
+2. **Phase 1, Foundations (4 to 6 weeks):** project setup, CI, design system, shared KMP core skeleton, local database, navigation shell, authentication backend and screens.
+3. **Phase 2, Calculator MVP (6 to 8 weeks):** basic and scientific modes, expression editor, graphing, history, unit library, step-by-step for core problem types, and the first test suite.
+4. **Phase 3, Learning MVP (6 to 8 weeks):** two of the five core games, 20 to 25 mini-games, five or six simulations, adaptive-difficulty v1, progress and badges, and content pipeline v1.
+5. **Phase 4, Hardening and closed beta (4 to 6 weeks):** accessibility audit, performance tuning, security review, privacy review, classroom pilots, and bug bashes.
+6. **Phase 5, Public launch (2 to 3 weeks):** store listing, release train with staged rollout, support channel, and launch monitoring.
+7. **Phase 6, Expansion (ongoing, in 6-week increments):** remaining three core games, mini-game packs to reach 100+, the full simulation lab, physics solver depth, teacher mode, language packs, and optional AI tutor.
+
+Also provide: a **Gantt-style table or Mermaid timeline**, a **RACI chart**, a **minimum team composition** (and what a solo developer should cut), a **backlog skeleton** of epics and example user stories with acceptance criteria, and a **definition of the MVP** that is small enough to ship yet clearly valuable.
+
+---
+
+## 16. LAUNCH, GROWTH, COMMUNITY, AND SUSTAINABILITY (Blueprint Section 16)
+
+- **Launch plan:** store listing copy guidelines (honest, specific, no exaggerated claims), screenshots and video outline, soft launch with partner schools, and a feedback loop.
+- **Growth without manipulation:** word of mouth, teacher champions, shareable achievements that do not leak personal data, and content marketing such as problem-of-the-day posts. No spam, no fake reviews, and no incentives for ratings.
+- **Community:** a student and teacher forum or chat space with moderation rules, a contributor programme for question authors, and public roadmaps.
+- **Support:** FAQ, in-app help, response-time goals, and a bug-report flow with screenshots and device info (with user consent).
+- **Sustainability options,** each with pros, cons, and the safeguard that it never restricts student features: education grants and scholarships, institutional or school partnerships, an optional paid teacher or school dashboard, voluntary donations, open-source sponsorship, and sponsored content packs from non-commercial educational organisations. State plainly that ad-based and data-based models are excluded.
+- **Impact measurement:** a lightweight plan to show learning gains to schools and funders without collecting unnecessary data.
+- **Post-launch cadence:** monthly content drops, quarterly feature releases, and an annual syllabus review.
+
+---
+
+## 17. RISK REGISTER (Blueprint Section 17)
+
+Present a table with these columns: **Risk, Likelihood (L/M/H), Impact (L/M/H), Early warning sign, Mitigation, Owner.** Cover at minimum:
+
+- Scope too large for the timeline (100+ mini-games and 5 core games at once)
+- Incorrect answers or explanations undermining trust
+- Performance problems on low-end devices
+- Google Play policy issues around content delivery, children's data, and education apps
+- Privacy or security incident involving minors' data
+- Engine library licensing or maintenance problems
+- Content authoring bottleneck and teacher-review capacity
+- Low engagement or novelty drop-off
+- Funding gap while staying free and ad-free
+- Team burnout or key-person dependency
+- Syllabus changes by education boards
+- Cheating or misuse of the step solver for homework (address with learning-first design, not blanket blocking)
+- Accessibility gaps discovered late
+- Backend cost growth if usage spikes
+
+---
+
+## 18. APPENDICES (Blueprint Section 18)
+
+Provide the following ready-to-use assets:
+
+1. **Glossary** of technical and educational terms used in the blueprint.
+2. **Sample JSON schemas:** a question item, a mini-game definition, a content-pack manifest, a simulation parameter file, and a mastery-state record. Keep each schema valid and commented.
+3. **Sample code skeletons** in Kotlin: a Compose calculator keypad component, a shared KMP expression-evaluation interface, a use case with a repository, and a content-pack loader with checksum verification. Code must be compilable in principle; if you are unsure of an API detail, add a comment saying **verify before use**.
+4. **Checklists:** pre-release checklist, accessibility checklist, privacy and child-safety checklist, and content-review checklist.
+5. **Sample worked solutions:** three step-by-step examples (a quadratic equation, a trigonometric identity proof, and a two-stage projectile problem) written exactly as the app should display them, with every number verified.
+6. **Sample copy:** onboarding text, a kind wrong-answer message, a privacy statement for students, and an empty-state message, all in a warm, concise tone suitable for 15 to 17 year olds.
+7. **Open questions for me:** a short list of decisions you need from me (for example, target exam boards, languages beyond English, team size, budget, launch scope) and your recommended default for each.
+
+---
+
+## 19. OUTPUT FORMAT AND QUALITY BAR
+
+- Begin with a **one-page executive summary** and a **table of contents**.
+- Use numbered headings that match the section numbers above, so I can ask follow-up questions by number.
+- Use **tables** for catalogues, roadmaps, and risk registers; **Mermaid diagrams** for architecture, flows, and timelines; and short paragraphs elsewhere. Avoid walls of text.
+- Keep language clear and professional. Define jargon the first time it appears.
+- Mark every uncertain fact **verify before use** and every assumption `[ASSUMPTION]`.
+- Do not invent data, citations, product claims, market statistics, prices, or contact details.
+- If the response is too long for a single message, deliver it in clearly numbered parts and end each part with the exact heading of the next part, then continue when I say **"continue"**.
+- Finish with a **verification pass**: list the five most likely weaknesses in your own blueprint and how to address them, then a short **next-actions list** for the first 14 days.
+
+---
+
+## 20. FINAL INSTRUCTION
+
+Treat this brief as the single source of truth. If any requirement conflicts with another, or if something I asked for is unrealistic for the timeline, say so clearly, explain why, and propose the best alternative rather than silently dropping it. Aim to deliver a blueprint that a real team could pick up tomorrow and start building. **Begin now with the executive summary and table of contents.**
