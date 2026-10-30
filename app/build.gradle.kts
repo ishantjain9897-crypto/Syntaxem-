@@ -42,11 +42,17 @@ android {
         ?: "my-upload-key.jks"
       val kFile = File(keystorePath)
       storeFile = if (kFile.isAbsolute) kFile else rootProject.file(keystorePath)
-      storePassword = System.getenv("KEYSTORE_PASSWORD")
+      storePassword = System.getenv("RELEASE_KEYSTORE_PASSWORD")
+        ?: System.getenv("KEYSTORE_PASSWORD")
         ?: System.getenv("STORE_PASSWORD")
         ?: keystoreProps.getProperty("storePassword")
-      keyAlias = System.getenv("KEY_ALIAS") ?: keystoreProps.getProperty("keyAlias") ?: "upload"
-      keyPassword = System.getenv("KEY_PASSWORD") ?: keystoreProps.getProperty("keyPassword")
+      keyAlias = System.getenv("RELEASE_KEY_ALIAS")
+        ?: System.getenv("KEY_ALIAS")
+        ?: keystoreProps.getProperty("keyAlias")
+        ?: "upload"
+      keyPassword = System.getenv("RELEASE_KEY_PASSWORD")
+        ?: System.getenv("KEY_PASSWORD")
+        ?: keystoreProps.getProperty("keyPassword")
       enableV1Signing = true
       enableV2Signing = true
     }
