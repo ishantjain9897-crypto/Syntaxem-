@@ -37,11 +37,17 @@ android {
         }
       }
       val keystorePath = System.getenv("KEYSTORE_FILE")
+        ?: System.getenv("RELEASE_KEYSTORE_FILE")
         ?: System.getenv("KEYSTORE_PATH")
         ?: keystoreProps.getProperty("storeFile")
-        ?: "my-upload-key.jks"
+        ?: "app/release.keystore"
       val kFile = File(keystorePath)
-      storeFile = if (kFile.isAbsolute) kFile else rootProject.file(keystorePath)
+      storeFile = when {
+        kFile.isAbsolute -> kFile
+        rootProject.file(keystorePath).exists() -> rootProject.file(keystorePath)
+        file(keystorePath).exists() -> file(keystorePath)
+        else -> rootProject.file(keystorePath)
+      }
       storePassword = System.getenv("RELEASE_KEYSTORE_PASSWORD")
         ?: System.getenv("KEYSTORE_PASSWORD")
         ?: System.getenv("STORE_PASSWORD")
