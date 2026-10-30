@@ -1,3 +1,4 @@
+
 import com.google.gms.googleservices.GoogleServicesPlugin.MissingGoogleServicesStrategy
 import java.io.File
 import java.io.FileInputStream
@@ -40,7 +41,7 @@ android {
         ?: System.getenv("RELEASE_KEYSTORE_FILE")
         ?: System.getenv("KEYSTORE_PATH")
         ?: keystoreProps.getProperty("storeFile")
-        ?: "app/release.keystore"
+        ?: "release-key.jks"
       val kFile = File(keystorePath)
       storeFile = when {
         kFile.isAbsolute -> kFile

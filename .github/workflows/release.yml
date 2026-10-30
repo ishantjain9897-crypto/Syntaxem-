@@ -34,40 +34,27 @@ jobs:
 
       - name: Decode Release Keystore
         run: |
-          # Ensure target folders exist in both root and android/ structures
+          # Create target directories if they don't exist
           mkdir -p app android/app
 
-          # Strip any hidden newlines, carriage returns, or spaces and decode
-          echo "${{ secrets.RELEASE_KEYSTORE_BASE64 }}" | tr -d '\n\r ' | base64 --decode > android/app/release.keystore
-          
-          # Mirror to app/release.keystore for standard root Gradle projects
-          cp android/app/release.keystore app/release.keystore
+          # Decode Base64 string while stripping all newlines, carriage returns, and spaces
+          echo "${{ secrets.RELEASE_KEYSTORE_BASE64 }}" | tr -d '\n\r ' | base64 --decode > release-key.jks
+
+          # Copy to expected build locations
+          cp release-key.jks app/release-key.jks 2>/dev/null || true
+          cp release-key.jks android/app/release-key.jks 2>/dev/null || true
 
       - name: Verify Keystore File
         run: |
-          if [ ! -s android/app/release.keystore ]; then
+          if [ ! -s release-key.jks ]; then
             echo "::error::Keystore Base64 secret is missing or empty. Please check RELEASE_KEYSTORE_BASE64 in GitHub Repository Secrets."
             exit 1
           fi
-          echo "Keystore successfully decoded ($(stat -c%s android/app/release.keystore) bytes)."
-
-      - name: Verify Keystore Integrity with Keytool
-        env:
-          RELEASE_KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
-          RELEASE_KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
-        run: |
-          echo "Verifying keystore with keytool..."
-          keytool -list -v \
-            -keystore android/app/release.keystore \
-            -storepass "$RELEASE_KEYSTORE_PASSWORD" \
-            -alias "$RELEASE_KEY_ALIAS"
-          echo "Keystore verified successfully."
+          echo "Keystore successfully decoded ($(stat -c%s release-key.jks) bytes)."
 
       - name: Build Release APK
         env:
-          # These must match the System.getenv() calls in your build.gradle
-          KEYSTORE_FILE: android/app/release.keystore
-          RELEASE_KEYSTORE_FILE: android/app/release.keystore
+          KEYSTORE_FILE: release-key.jks
           RELEASE_KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
           RELEASE_KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
           RELEASE_KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD }}
@@ -78,7 +65,39 @@ jobs:
             cd android && ./gradlew assembleRelease --stacktrace --no-daemon
           fi
 
-      - name: Upload Release APK
+      - name: Verify APK Signature and Non-Debug Status
+        run: |
+          # 1. Locate the generated release APK
+          RELEASE_APK=$(find . -path "*/build/outputs/apk/release/*-release.apk" -o -path "*/build/outputs/apk/release/*-unsigned.apk" 2>/dev/null | head -n 1)
+          
+          if [ -z "$RELEASE_APK" ] || [ ! -f "$RELEASE_APK" ]; then
+            echo "::error::Could not find generated release APK under build/outputs/apk/release/"
+            exit 1
+          fi
+          echo "Found release APK at: $RELEASE_APK"
+
+          # 2. Locate apksigner in Android SDK
+          APKSIGNER=$(find "$ANDROID_HOME/build-tools" -name "apksigner" | sort -V | tail -n 1)
+          if [ -z "$APKSIGNER" ]; then
+            APKSIGNER="apksigner"
+          fi
+          echo "Using apksigner at: $APKSIGNER"
+
+          # 3. Print certificate info and check signature
+          echo "=== Verifying APK Signature Scheme & Certificate ==="
+          CERT_OUTPUT=$("$APKSIGNER" verify --print-certs --verbose "$RELEASE_APK")
+          echo "$CERT_OUTPUT"
+
+          # 4. CRITICAL CHECK: Reject any build signed with Android Debug Key
+          if echo "$CERT_OUTPUT" | grep -qi "CN=Android Debug"; then
+            echo "::error::CRITICAL FAILURE: The APK was signed with the Android Debug Certificate (CN=Android Debug)!"
+            echo "::error::Indus App Store and Google Play will reject this APK. Failing workflow."
+            exit 1
+          fi
+
+          echo "SUCCESS: The APK is verified as signed with a production release certificate."
+
+      - name: Upload Release APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: app-release-apk
@@ -91,4 +110,4 @@ jobs:
       - name: Secure Cleanup
         if: always()
         run: |
-          rm -f android/app/release.keystore app/release.keystore
+          rm -f release-key.jks app/release-key.jks android/app/release-key.jks
