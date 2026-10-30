@@ -35,32 +35,27 @@ jobs:
       # ==============================================================
       # STEP 1: Verify presence and size of RELEASE_KEYSTORE_BASE64
       # ==============================================================
-      - name: Verify Secret Presence & Size (Diagnostic)
-        env:
-          KEYSTORE_BASE64_RAW: ${{ secrets.RELEASE_KEYSTORE_BASE64 }}
+      - name: Debug Secret Length
         run: |
-          SECRET_CHAR_COUNT=$(printf "%s" "$KEYSTORE_BASE64_RAW" | wc -c)
+          SECRET_LEN=$(echo -n "${{ secrets.RELEASE_KEYSTORE_BASE64 }}" | wc -c)
           echo "=========================================================="
-          echo "RELEASE_KEYSTORE_BASE64 character count: $SECRET_CHAR_COUNT characters"
+          echo "Secret length: $SECRET_LEN characters"
           echo "=========================================================="
 
-          if [ "$SECRET_CHAR_COUNT" -eq 0 ]; then
-            echo "::error::CRITICAL FAILURE: RELEASE_KEYSTORE_BASE64 is empty (0 characters)!"
-            echo "::error::GitHub Actions is not receiving this secret. Please check:"
+          if [ "$SECRET_LEN" -eq 0 ]; then
+            echo "::error::CRITICAL FAILURE: Secret length is 0! RELEASE_KEYSTORE_BASE64 was not found in GitHub Repository Secrets."
             echo "::error::1. Navigate to Settings > Secrets and variables > Actions."
             echo "::error::2. Verify RELEASE_KEYSTORE_BASE64 is defined under 'Repository secrets' (NOT 'Environment secrets')."
             echo "::error::3. Confirm there are no leading or trailing spaces in the secret name."
             exit 1
           fi
 
-          if [ "$SECRET_CHAR_COUNT" -lt 500 ]; then
-            echo "::error::CRITICAL FAILURE: RELEASE_KEYSTORE_BASE64 is too small ($SECRET_CHAR_COUNT characters)."
-            echo "::error::A valid 2048-bit RSA keystore Base64 string is typically between 2,500 and 3,500 characters."
-            echo "::error::Please re-encode your release-key.jks without truncation."
+          if [ "$SECRET_LEN" -lt 500 ]; then
+            echo "::error::CRITICAL FAILURE: Secret length is too small ($SECRET_LEN characters). Keystore is likely truncated."
             exit 1
           fi
 
-          echo "SUCCESS: Secret detected with valid length ($SECRET_CHAR_COUNT characters). Proceeding to decode..."
+          echo "SUCCESS: Secret detected with valid length ($SECRET_LEN characters). Proceeding to decode..."
 
       # ==============================================================
       # STEP 2: Decode Keystore with line-break sanitization
