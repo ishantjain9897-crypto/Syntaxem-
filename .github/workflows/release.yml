@@ -24,58 +24,84 @@ jobs:
           java-version: '17'
           cache: 'gradle'
 
-      - name: Grant execute permission for gradlew
+      - name: Grant execute permission to gradlew
         run: |
           if [ -f "gradlew" ]; then
             chmod +x gradlew
-          elif [ -f "android/gradlew" ]; then
-            chmod +x android/gradlew
+          else
+            echo "::error::gradlew not found in repository root!"
+            exit 1
           fi
 
       - name: Decode Release Keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.RELEASE_KEYSTORE_BASE64 || secrets.KEYSTORE_BASE64 }}
         run: |
           mkdir -p app
-          echo "${{ secrets.RELEASE_KEYSTORE_BASE64 }}" | tr -d '\n\r ' | base64 --decode > app/release.keystore
-
-      - name: Verify Keystore File Exists and Is Not Empty
-        run: |
-          if [ ! -s app/release.keystore ]; then
-            echo "::error::Release keystore could not be decoded or is empty. Please check the RELEASE_KEYSTORE_BASE64 secret in GitHub Repository Secrets."
+          if [ -z "$KEYSTORE_BASE64" ]; then
+            echo "::error::Keystore Base64 secret is missing or empty. Please check RELEASE_KEYSTORE_BASE64 in GitHub Repository Secrets."
             exit 1
           fi
+
+          echo "$KEYSTORE_BASE64" | tr -d '\n\r ' | base64 --decode > app/release.keystore
+
+          if [ ! -s app/release.keystore ]; then
+            echo "::error::Decoded keystore file is empty (0 bytes). Base64 string is corrupted or invalid."
+            exit 1
+          fi
+
           echo "Keystore successfully decoded to app/release.keystore ($(stat -c%s app/release.keystore) bytes)."
 
-      - name: Verify Keystore Integrity with Keytool
+      - name: Verify Keystore via keytool
         env:
-          RELEASE_KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
-          RELEASE_KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
+          RELEASE_KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD || secrets.KEYSTORE_PASSWORD }}
+          RELEASE_KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS || secrets.KEY_ALIAS }}
         run: |
-          echo "Verifying keystore validity with keytool..."
+          echo "Verifying keystore file and credentials using keytool..."
           keytool -list -v \
             -keystore app/release.keystore \
             -storepass "$RELEASE_KEYSTORE_PASSWORD" \
             -alias "$RELEASE_KEY_ALIAS"
-          echo "Keystore verified successfully."
+          echo "Keystore integrity check passed: keystore is valid and alias exists."
 
-      - name: Build Release APK
+      - name: Build Signed Release APK
         env:
           KEYSTORE_FILE: app/release.keystore
           RELEASE_KEYSTORE_FILE: app/release.keystore
-          RELEASE_KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
-          RELEASE_KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
-          RELEASE_KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD }}
-          KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
-          KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
-          KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD }}
-        run: ./gradlew assembleRelease --stacktrace --no-daemon
+          RELEASE_KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD || secrets.KEYSTORE_PASSWORD }}
+          RELEASE_KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS || secrets.KEY_ALIAS }}
+          RELEASE_KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD || secrets.KEY_PASSWORD }}
+          KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD || secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS || secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD || secrets.KEY_PASSWORD }}
+        run: ./gradlew clean :app:assembleRelease --stacktrace --no-daemon
+
+      - name: Verify APK Signature and Non-Debuggable Status
+        run: |
+          RELEASE_APK="app/build/outputs/apk/release/app-release.apk"
+          if [ ! -f "$RELEASE_APK" ]; then
+            echo "::error::Release APK was not generated at $RELEASE_APK"
+            exit 1
+          fi
+
+          BUILD_TOOLS_DIR=$(ls -d $ANDROID_HOME/build-tools/* | sort -V | tail -n 1)
+          echo "Using Android Build Tools at: $BUILD_TOOLS_DIR"
+
+          echo "=== 1. Verifying APK Signature ==="
+          "$BUILD_TOOLS_DIR/apksigner" verify --verbose --print-certs "$RELEASE_APK"
+
+          echo "=== 2. Confirming APK is NOT Debuggable ==="
+          if "$BUILD_TOOLS_DIR/aapt2" dump badging "$RELEASE_APK" | grep -iE "application-debuggable|android:debuggable"; then
+            echo "::error::FAILURE: APK contains debug flag! App store will reject this build."
+            exit 1
+          fi
+          echo "SUCCESS: APK is signed and strictly non-debuggable."
 
       - name: Upload Release APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: app-release-apk
-          path: |
-            app/build/outputs/apk/release/*.apk
-            android/app/build/outputs/apk/release/*.apk
+          path: app/build/outputs/apk/release/app-release.apk
           if-no-files-found: error
           retention-days: 30
 
