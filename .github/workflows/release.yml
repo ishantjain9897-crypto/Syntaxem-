@@ -32,26 +32,78 @@ jobs:
             chmod +x android/gradlew
           fi
 
-      - name: Decode Release Keystore
+      # ==============================================================
+      # STEP 1: Verify presence and size of RELEASE_KEYSTORE_BASE64
+      # ==============================================================
+      - name: Verify Secret Presence & Size (Diagnostic)
+        env:
+          KEYSTORE_BASE64_RAW: ${{ secrets.RELEASE_KEYSTORE_BASE64 }}
         run: |
-          # Create target directories if they don't exist
+          SECRET_CHAR_COUNT=$(printf "%s" "$KEYSTORE_BASE64_RAW" | wc -c)
+          echo "=========================================================="
+          echo "RELEASE_KEYSTORE_BASE64 character count: $SECRET_CHAR_COUNT characters"
+          echo "=========================================================="
+
+          if [ "$SECRET_CHAR_COUNT" -eq 0 ]; then
+            echo "::error::CRITICAL FAILURE: RELEASE_KEYSTORE_BASE64 is empty (0 characters)!"
+            echo "::error::GitHub Actions is not receiving this secret. Please check:"
+            echo "::error::1. Navigate to Settings > Secrets and variables > Actions."
+            echo "::error::2. Verify RELEASE_KEYSTORE_BASE64 is defined under 'Repository secrets' (NOT 'Environment secrets')."
+            echo "::error::3. Confirm there are no leading or trailing spaces in the secret name."
+            exit 1
+          fi
+
+          if [ "$SECRET_CHAR_COUNT" -lt 500 ]; then
+            echo "::error::CRITICAL FAILURE: RELEASE_KEYSTORE_BASE64 is too small ($SECRET_CHAR_COUNT characters)."
+            echo "::error::A valid 2048-bit RSA keystore Base64 string is typically between 2,500 and 3,500 characters."
+            echo "::error::Please re-encode your release-key.jks without truncation."
+            exit 1
+          fi
+
+          echo "SUCCESS: Secret detected with valid length ($SECRET_CHAR_COUNT characters). Proceeding to decode..."
+
+      # ==============================================================
+      # STEP 2: Decode Keystore with line-break sanitization
+      # ==============================================================
+      - name: Decode Release Keystore
+        env:
+          KEYSTORE_BASE64_RAW: ${{ secrets.RELEASE_KEYSTORE_BASE64 }}
+        run: |
           mkdir -p app android/app
 
-          # Decode Base64 string while stripping all newlines, carriage returns, and spaces
-          echo "${{ secrets.RELEASE_KEYSTORE_BASE64 }}" | tr -d '\n\r ' | base64 --decode > release-key.jks
+          # Strip any carriage returns, newlines, or spaces, then decode
+          printf "%s" "$KEYSTORE_BASE64_RAW" | tr -d '\n\r ' | base64 --decode > release-key.jks
 
-          # Copy to expected build locations
+          # Mirror to app and android/app directories for all Gradle project layouts
           cp release-key.jks app/release-key.jks 2>/dev/null || true
           cp release-key.jks android/app/release-key.jks 2>/dev/null || true
 
-      - name: Verify Keystore File
+      - name: Verify Decoded Keystore File
         run: |
           if [ ! -s release-key.jks ]; then
-            echo "::error::Keystore Base64 secret is missing or empty. Please check RELEASE_KEYSTORE_BASE64 in GitHub Repository Secrets."
+            echo "::error::Decoded keystore file is 0 bytes. Base64 payload could not be decoded."
             exit 1
           fi
-          echo "Keystore successfully decoded ($(stat -c%s release-key.jks) bytes)."
+          echo "Keystore successfully created ($(stat -c%s release-key.jks) bytes)."
 
+      # ==============================================================
+      # STEP 3: Validate Keystore with keytool before building
+      # ==============================================================
+      - name: Validate Keystore with Keytool
+        env:
+          RELEASE_KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
+          RELEASE_KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
+        run: |
+          echo "Validating keystore certificate and credentials..."
+          keytool -list -v \
+            -keystore release-key.jks \
+            -storepass "$RELEASE_KEYSTORE_PASSWORD" \
+            -alias "$RELEASE_KEY_ALIAS"
+          echo "Keystore verified successfully."
+
+      # ==============================================================
+      # STEP 4: Build Signed Release APK
+      # ==============================================================
       - name: Build Release APK
         env:
           KEYSTORE_FILE: release-key.jks
@@ -65,38 +117,48 @@ jobs:
             cd android && ./gradlew assembleRelease --stacktrace --no-daemon
           fi
 
+      # ==============================================================
+      # STEP 5: Verify APK Signature & Non-Debug Status
+      # ==============================================================
       - name: Verify APK Signature and Non-Debug Status
         run: |
-          # 1. Locate the generated release APK
           RELEASE_APK=$(find . -path "*/build/outputs/apk/release/*-release.apk" -o -path "*/build/outputs/apk/release/*-unsigned.apk" 2>/dev/null | head -n 1)
-          
           if [ -z "$RELEASE_APK" ] || [ ! -f "$RELEASE_APK" ]; then
             echo "::error::Could not find generated release APK under build/outputs/apk/release/"
             exit 1
           fi
           echo "Found release APK at: $RELEASE_APK"
 
-          # 2. Locate apksigner in Android SDK
           APKSIGNER=$(find "$ANDROID_HOME/build-tools" -name "apksigner" | sort -V | tail -n 1)
           if [ -z "$APKSIGNER" ]; then
             APKSIGNER="apksigner"
           fi
-          echo "Using apksigner at: $APKSIGNER"
 
-          # 3. Print certificate info and check signature
-          echo "=== Verifying APK Signature Scheme & Certificate ==="
+          echo "=== Verifying APK Signature ==="
           CERT_OUTPUT=$("$APKSIGNER" verify --print-certs --verbose "$RELEASE_APK")
           echo "$CERT_OUTPUT"
 
-          # 4. CRITICAL CHECK: Reject any build signed with Android Debug Key
           if echo "$CERT_OUTPUT" | grep -qi "CN=Android Debug"; then
-            echo "::error::CRITICAL FAILURE: The APK was signed with the Android Debug Certificate (CN=Android Debug)!"
-            echo "::error::Indus App Store and Google Play will reject this APK. Failing workflow."
+            echo "::error::CRITICAL: APK was signed with Android Debug Key! Rejecting."
             exit 1
           fi
 
-          echo "SUCCESS: The APK is verified as signed with a production release certificate."
+          # Locate aapt2 to verify manifest debuggable attribute is absent
+          AAPT2=$(find "$ANDROID_HOME/build-tools" -name "aapt2" | sort -V | tail -n 1)
+          if [ -n "$AAPT2" ]; then
+            echo "=== Checking that APK is NOT debuggable ==="
+            if "$AAPT2" dump badging "$RELEASE_APK" 2>/dev/null | grep -qiE "application-debuggable|android:debuggable"; then
+              echo "::error::CRITICAL: APK has debuggable flag enabled! Rejecting."
+              exit 1
+            fi
+            echo "Verified: Manifest contains no debuggable flag."
+          fi
 
+          echo "SUCCESS: APK verified with production certificate and is non-debuggable."
+
+      # ==============================================================
+      # STEP 6: Upload Artifact & Secure Cleanup
+      # ==============================================================
       - name: Upload Release APK Artifact
         uses: actions/upload-artifact@v4
         with:
