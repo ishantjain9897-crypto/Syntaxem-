@@ -1,4 +1,7 @@
 import com.google.gms.googleservices.GoogleServicesPlugin.MissingGoogleServicesStrategy
+import java.io.File
+import java.io.FileInputStream
+import java.util.Properties
 
 plugins {
   alias(libs.plugins.android.application)
@@ -26,11 +29,21 @@ android {
   // and updating Android apps in AI Studio.
   signingConfigs {
     create("release") {
-      val keystorePath = System.getenv("KEYSTORE_PATH") ?: "${rootDir}/my-upload-key.jks"
-      storeFile = file(keystorePath)
-      storePassword = System.getenv("STORE_PASSWORD")
-      keyAlias = "upload"
-      keyPassword = System.getenv("KEY_PASSWORD")
+      val keystorePropsFile = rootProject.file("keystore.properties")
+      val keystoreProps = Properties()
+      if (keystorePropsFile.exists()) {
+        FileInputStream(keystorePropsFile).use { input ->
+          keystoreProps.load(input)
+        }
+      }
+      val keystorePath = System.getenv("KEYSTORE_PATH")
+        ?: keystoreProps.getProperty("storeFile")
+        ?: "my-upload-key.jks"
+      val kFile = File(keystorePath)
+      storeFile = if (kFile.isAbsolute) kFile else rootProject.file(keystorePath)
+      storePassword = System.getenv("STORE_PASSWORD") ?: keystoreProps.getProperty("storePassword")
+      keyAlias = System.getenv("KEY_ALIAS") ?: keystoreProps.getProperty("keyAlias") ?: "upload"
+      keyPassword = System.getenv("KEY_PASSWORD") ?: keystoreProps.getProperty("keyPassword")
     }
     create("debugConfig") {
       storeFile = file("${rootDir}/debug.keystore")
@@ -42,8 +55,10 @@ android {
 
   buildTypes {
     release {
+      isDebuggable = false
       isCrunchPngs = false
-      isMinifyEnabled = false
+      isMinifyEnabled = true
+      isShrinkResources = true
       proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
       // Do not remove or modify this signingConfig assignment. It is necessary for Android apps in
       // AI Studio.
