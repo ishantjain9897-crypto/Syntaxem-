@@ -33,16 +33,47 @@
 -keep class androidx.compose.material3.** { *; }
 
 # ----------------------------------------------------------------------------
-# Room Database & SQLite
+# Room Database, SQLite & TypeConverters
 # ----------------------------------------------------------------------------
 -keep class * extends androidx.room.RoomDatabase
 -dontwarn androidx.room.paging.**
+-keep class androidx.room.** { *; }
 -keep class com.example.syntaxem.data.local.entity.** { *; }
 -keep class com.example.syntaxem.data.local.dao.** { *; }
+-keep class com.example.syntaxem.data.local.** { *; }
 -keep class com.example.core.database.** { *; }
+-keep class com.example.core.database.entity.** { *; }
+-keep class com.example.core.database.dao.** { *; }
+-keep class com.example.core.database.converter.** { *; }
 
 # ----------------------------------------------------------------------------
-# Retrofit, OkHttp & Moshi (Weather & API Telemetry)
+# Ktor & kotlinx.serialization
+# ----------------------------------------------------------------------------
+-keepattributes *Annotation*, InnerClasses, EnclosingMethod
+-dontwarn io.ktor.**
+-keep class io.ktor.** { *; }
+-dontwarn kotlinx.serialization.**
+-keepattributes *Annotation*, EnclosingMethod
+-keepclassmembers class * {
+    companion object;
+}
+-keepclassmembers class * {
+    @kotlinx.serialization.Serializable <fields>;
+}
+-keep class kotlinx.serialization.** { *; }
+-keep @kotlinx.serialization.Serializable class * { *; }
+
+# ----------------------------------------------------------------------------
+# Firebase AI Logic, Auth, App Check & Google Play Services
+# ----------------------------------------------------------------------------
+-keep class com.google.firebase.** { *; }
+-dontwarn com.google.firebase.**
+-keep class com.google.android.gms.** { *; }
+-dontwarn com.google.android.gms.**
+-keepattributes *Annotation*, Signature, EnclosingMethod, InnerClasses
+
+# ----------------------------------------------------------------------------
+# Retrofit, OkHttp & Moshi
 # ----------------------------------------------------------------------------
 -dontnote retrofit2.Platform
 -dontwarn retrofit2.Platform$Java8
@@ -57,23 +88,18 @@
 
 # Moshi serialization / JSON Data Transfer Objects
 -keep class com.squareup.moshi.** { *; }
--keepattributes *Annotation*
 -keepclassmembers class * {
     @com.squareup.moshi.Json <fields>;
 }
 -keep @com.squareup.moshi.JsonClass class * { *; }
--keep class com.example.syntaxem.data.weather.** { *; }
+
+# ----------------------------------------------------------------------------
+# Application Data & Model Classes (Prevent R8 field stripping / obfuscation)
+# ----------------------------------------------------------------------------
 -keep class com.example.syntaxem.model.** { *; }
-
-# ----------------------------------------------------------------------------
-# Google Play Services & Location APIs
-# ----------------------------------------------------------------------------
--keep class com.google.android.gms.location.** { *; }
--dontwarn com.google.android.gms.**
-
-# ----------------------------------------------------------------------------
-# Firebase AI Logic & App Check
-# ----------------------------------------------------------------------------
--keep class com.google.firebase.** { *; }
--dontwarn com.google.firebase.**
--keepattributes *Annotation*, Signature, EnclosingMethod, InnerClasses
+-keep class com.example.syntaxem.data.** { *; }
+-keep class com.example.syntaxem.data.weather.** { *; }
+-keep class com.example.orbitlab.model.** { *; }
+-keep class com.example.calcmaster.model.** { *; }
+-keep class com.example.calcmaster.lumenflow.model.** { *; }
+-keep class com.example.core.calculation.model.** { *; }

@@ -1,4 +1,4 @@
-name: Build and Sign Release APK
+name: Build Signed Release APK
 
 on:
   push:
@@ -17,11 +17,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Java 17
+      - name: Set up Java 17 with Gradle Cache
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
+          cache: 'gradle'
 
       - name: Verify Java Environment
         run: |
@@ -41,22 +42,39 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Build Release APK
+      - name: Build Signed Release APK
         env:
           KEYSTORE_FILE: ${{ runner.temp }}/release.jks
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-        run: ./gradlew assembleRelease --stacktrace --no-daemon
+        run: ./gradlew clean assembleRelease --stacktrace --no-daemon
 
-      - name: Verify Signed APK
+      - name: Verify APK Signature and Non-Debuggable Status
         run: |
           RELEASE_APK="app/build/outputs/apk/release/app-release.apk"
           if [ ! -f "$RELEASE_APK" ]; then
-            echo "::error::Expected release APK not found at $RELEASE_APK"
+            echo "::error::Release APK was not generated at $RELEASE_APK"
             exit 1
           fi
-          echo "Release APK verified successfully at $RELEASE_APK ($(stat -c%s "$RELEASE_APK") bytes)."
+
+          echo "Locating Android SDK build tools..."
+          BUILD_TOOLS_DIR=$(ls -d $ANDROID_HOME/build-tools/* | sort -V | tail -n 1)
+          echo "Using Android Build Tools at: $BUILD_TOOLS_DIR"
+
+          echo "=== 1. Verifying APK Signature (V1/V2 schemes) ==="
+          "$BUILD_TOOLS_DIR/apksigner" verify --verbose --print-certs "$RELEASE_APK"
+          if [ $? -ne 0 ]; then
+            echo "::error::APK signature verification failed!"
+            exit 1
+          fi
+
+          echo "=== 2. Confirming APK is NOT Debuggable (aapt2 inspection) ==="
+          if "$BUILD_TOOLS_DIR/aapt2" dump badging "$RELEASE_APK" | grep -iE "application-debuggable|android:debuggable"; then
+            echo "::error::FAILURE: APK contains debug flag! Indus App Store will reject this build."
+            exit 1
+          fi
+          echo "SUCCESS: APK is strictly non-debuggable."
 
       - name: Upload Release APK Artifact
         uses: actions/upload-artifact@v4
@@ -66,7 +84,7 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
-      - name: Cleanup Keystore
+      - name: Secure Cleanup
         if: always()
         run: |
           rm -f "${{ runner.temp }}/release.jks"
