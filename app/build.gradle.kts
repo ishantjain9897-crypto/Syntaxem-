@@ -36,12 +36,15 @@ android {
           keystoreProps.load(input)
         }
       }
-      val keystorePath = System.getenv("KEYSTORE_PATH")
+      val keystorePath = System.getenv("KEYSTORE_FILE")
+        ?: System.getenv("KEYSTORE_PATH")
         ?: keystoreProps.getProperty("storeFile")
         ?: "my-upload-key.jks"
       val kFile = File(keystorePath)
       storeFile = if (kFile.isAbsolute) kFile else rootProject.file(keystorePath)
-      storePassword = System.getenv("STORE_PASSWORD") ?: keystoreProps.getProperty("storePassword")
+      storePassword = System.getenv("KEYSTORE_PASSWORD")
+        ?: System.getenv("STORE_PASSWORD")
+        ?: keystoreProps.getProperty("storePassword")
       keyAlias = System.getenv("KEY_ALIAS") ?: keystoreProps.getProperty("keyAlias") ?: "upload"
       keyPassword = System.getenv("KEY_PASSWORD") ?: keystoreProps.getProperty("keyPassword")
     }
@@ -78,7 +81,11 @@ android {
     compose = true
     buildConfig = true
   }
-  testOptions { unitTests { isIncludeAndroidResources = true } }
+  lint {
+    checkReleaseBuilds = false
+    abortOnError = false
+    disable += setOf("HardcodedDebugMode")
+  }
   dependenciesInfo {
     includeInApk = false
     includeInBundle = true

@@ -19,3 +19,5 @@ debug.keystore
 keystore.properties
 *.jks
 *.keystore
+*.p12
+*.pfx

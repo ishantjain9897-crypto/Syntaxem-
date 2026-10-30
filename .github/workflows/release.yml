@@ -1,0 +1,72 @@
+name: Build and Sign Release APK
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-release:
+    name: Build Signed Release APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Verify Java Environment
+        run: |
+          java -version
+          echo "JAVA_HOME=$JAVA_HOME"
+
+      - name: Decode Release Keystore
+        run: |
+          echo "Decoding release keystore from GitHub Secret..."
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > "${{ runner.temp }}/release.jks"
+          if [ ! -s "${{ runner.temp }}/release.jks" ]; then
+            echo "::error::Release keystore could not be decoded or is empty. Please check the KEYSTORE_BASE64 secret."
+            exit 1
+          fi
+          echo "Keystore successfully decoded to temporary location."
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build Release APK
+        env:
+          KEYSTORE_FILE: ${{ runner.temp }}/release.jks
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: ./gradlew assembleRelease --stacktrace --no-daemon
+
+      - name: Verify Signed APK
+        run: |
+          RELEASE_APK="app/build/outputs/apk/release/app-release.apk"
+          if [ ! -f "$RELEASE_APK" ]; then
+            echo "::error::Expected release APK not found at $RELEASE_APK"
+            exit 1
+          fi
+          echo "Release APK verified successfully at $RELEASE_APK ($(stat -c%s "$RELEASE_APK") bytes)."
+
+      - name: Upload Release APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release-apk
+          path: app/build/outputs/apk/release/app-release.apk
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Cleanup Keystore
+        if: always()
+        run: |
+          rm -f "${{ runner.temp }}/release.jks"
