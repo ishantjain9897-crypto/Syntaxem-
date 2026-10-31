@@ -6,8 +6,9 @@ on:
       - main
   workflow_dispatch:
 
+# CHANGED: 'write' permission is required to create a Release
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build-release:
@@ -152,7 +153,7 @@ jobs:
           echo "SUCCESS: APK verified with production certificate and is non-debuggable."
 
       # ==============================================================
-      # STEP 6: Upload Artifact & Secure Cleanup
+      # STEP 6: Upload Artifact
       # ==============================================================
       - name: Upload Release APK Artifact
         uses: actions/upload-artifact@v4
@@ -164,6 +165,26 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
+      # ==============================================================
+      # STEP 7: Create GitHub Release (NEW STEP)
+      # ==============================================================
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        if: github.ref == 'refs/heads/main'
+        with:
+          files: |
+            app/build/outputs/apk/release/*.apk
+            android/app/build/outputs/apk/release/*.apk
+          tag_name: v1.0.${{ github.run_number }}
+          name: Release v1.0.${{ github.run_number }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # ==============================================================
+      # STEP 8: Secure Cleanup
+      # ==============================================================
       - name: Secure Cleanup
         if: always()
         run: |
