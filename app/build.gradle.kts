@@ -56,7 +56,7 @@ android {
       keyAlias = System.getenv("RELEASE_KEY_ALIAS")
         ?: System.getenv("KEY_ALIAS")
         ?: keystoreProps.getProperty("keyAlias")
-        ?: "upload"
+        ?: "release"
       keyPassword = System.getenv("RELEASE_KEY_PASSWORD")
         ?: System.getenv("KEY_PASSWORD")
         ?: keystoreProps.getProperty("keyPassword")
