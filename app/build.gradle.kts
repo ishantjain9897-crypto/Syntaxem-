@@ -13,6 +13,24 @@ plugins {
 }
 
 android {
+signingConfigs {
+    create("release") {
+        // Uses the env vars from GitHub Actions, falls back to local file
+        storeFile = file(System.getenv("KEYSTORE_FILE") ?: "release-key.jks")
+        storePassword = System.getenv("RELEASE_KEYSTORE_PASSWORD")
+        keyAlias = System.getenv("RELEASE_KEY_ALIAS")
+        keyPassword = System.getenv("RELEASE_KEY_PASSWORD")
+    }
+}
+
+buildTypes {
+    release {
+        isMinifyEnabled = false // Set to true if you want code shrinking
+        isDebuggable = false    // CRITICAL: This removes debug mode
+        signingConfig = signingConfigs.getByName("release")
+    }
+}
+
   namespace = "com.example"
   compileSdk { version = release(36) { minorApiLevel = 1 } }
 
