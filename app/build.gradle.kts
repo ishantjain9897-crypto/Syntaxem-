@@ -1,4 +1,3 @@
-
 import com.google.gms.googleservices.GoogleServicesPlugin.MissingGoogleServicesStrategy
 import java.io.File
 import java.io.FileInputStream
@@ -13,14 +12,6 @@ plugins {
 }
 
 android {
-buildTypes {
-    release {
-        isMinifyEnabled = false // Set to true if you want code shrinking
-        isDebuggable = false    // CRITICAL: This removes debug mode
-        signingConfig = signingConfigs.getByName("release")
-    }
-}
-
   namespace = "com.example"
   compileSdk { version = release(36) { minorApiLevel = 1 } }
 
@@ -34,6 +25,7 @@ buildTypes {
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }
 
+  // 1. DEFINE SIGNING CONFIGS FIRST
   // Do not remove or modify these signingConfigs. They are necessary for building, installing,
   // and updating Android apps in AI Studio.
   signingConfigs {
@@ -79,36 +71,39 @@ buildTypes {
     }
   }
 
+  // 2. APPLY BUILD TYPES SECOND
   buildTypes {
     release {
       isDebuggable = false
       isCrunchPngs = false
-      isMinifyEnabled = true
-      isShrinkResources = true
+      isMinifyEnabled = false // Changed to false to prevent R8 crashes. You can change to true later.
+      isShrinkResources = false // Keep false if minify is false
       proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-      // Do not remove or modify this signingConfig assignment. It is necessary for Android apps in
-      // AI Studio.
+      // Do not remove or modify this signingConfig assignment. It is necessary for Android apps in AI Studio.
       signingConfig = signingConfigs.getByName("release")
     }
     debug {
-      // Do not remove or modify this signingConfig assignment. It is necessary for Android apps in
-      // AI Studio.
+      // Do not remove or modify this signingConfig assignment. It is necessary for Android apps in AI Studio.
       signingConfig = signingConfigs.getByName("debugConfig")
     }
   }
+
   compileOptions {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
   }
+  
   buildFeatures {
     compose = true
     buildConfig = true
   }
+  
   lint {
     checkReleaseBuilds = false
     abortOnError = false
     disable += setOf("HardcodedDebugMode")
   }
+  
   dependenciesInfo {
     includeInApk = false
     includeInBundle = true
@@ -174,19 +169,23 @@ dependencies {
   implementation(libs.okhttp)
   // implementation(libs.play.services.location)
   implementation(libs.retrofit)
+  
   testImplementation(libs.androidx.compose.ui.test.junit4)
   testImplementation(libs.androidx.core)
   testImplementation(libs.androidx.junit)
   testImplementation(libs.junit)
   testImplementation(libs.kotlinx.coroutines.test)
   testImplementation(libs.robolectric)
+  
   androidTestImplementation(platform(libs.androidx.compose.bom))
   androidTestImplementation(libs.androidx.compose.ui.test.junit4)
   androidTestImplementation(libs.androidx.espresso.core)
   androidTestImplementation(libs.androidx.junit)
   androidTestImplementation(libs.androidx.runner)
+  
   debugImplementation(libs.androidx.compose.ui.test.manifest)
   debugImplementation(libs.androidx.compose.ui.tooling)
+  
   "ksp"(libs.androidx.room.compiler)
   "ksp"(libs.moshi.kotlin.codegen)
 }
